@@ -5,10 +5,15 @@
  */
 package edu.eci.arsw.inverboyapp.persistence;
 
+import edu.eci.arsw.inverboyapp.model.Cotizacion;
+import edu.eci.arsw.inverboyapp.model.Usuario;
+import java.util.Set;
+
 /**
  *
  * @author javierfsilva7
  */
 public interface RepositorioCotizaciones {
-    
+     public Cotizacion getCotizadorByID(Integer id) throws PersistenceException;
+     public Set<Cotizacion> getAllCotizaciones() throws PersistenceException;
 }

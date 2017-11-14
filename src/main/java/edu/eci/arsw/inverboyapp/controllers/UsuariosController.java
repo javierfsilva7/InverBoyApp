@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.inverboyapp.controllers;
 
+import edu.eci.arsw.inverboyapp.persistence.RepositorioUsuarios;
 import edu.eci.arsw.inverboyapp.services.InverboyServicesException;
 import edu.eci.arsw.inverboyapp.services.Servicios;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,28 +21,29 @@ import org.springframework.web.bind.annotation.RestController;
  * @author javierfsilva7
  */
 @RestController
-@RequestMapping("/cotizaciones")
-public class CotizacionesController {
-    
+@RequestMapping("/usuarios")
+public class UsuariosController {
+
     @Autowired
     Servicios services;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getAllCotizaciones() {
+    public ResponseEntity<?> getAllUsers() {
         try {
-            return new ResponseEntity<>(services.getAllCotizadores(), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(services.getAllUsers(), HttpStatus.ACCEPTED);
         } catch (InverboyServicesException ex) {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getCotizadorById(@PathVariable int id) {
+    public ResponseEntity<?> getUserById(@PathVariable String id) {
         System.out.println(id);
         try {
-            return new ResponseEntity<>(services.getCotizadorById(id), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(services.getUserById(id), HttpStatus.ACCEPTED);
         } catch (InverboyServicesException ex) {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
 }

@@ -5,9 +5,12 @@
  */
 package edu.eci.arsw.inverboyapp.services;
 
-import edu.eci.arsw.inverboyapp.persistence.RepositorioAsesores;
+import edu.eci.arsw.inverboyapp.model.Cotizacion;
+import edu.eci.arsw.inverboyapp.model.Usuario;
+import edu.eci.arsw.inverboyapp.persistence.PersistenceException;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioCotizaciones;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioUsuarios;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +21,43 @@ import org.springframework.stereotype.Service;
 @Service
 public class Servicios {
 
-    //cache con los datos volatiles del juego
-    //@Autowired
-    //GameStateCache cache;
-    //repositorios (capa de persistencia)
-    
-    @Autowired
-    RepositorioAsesores AsesoresRepositorio;
-    
     @Autowired
     RepositorioUsuarios usuariosRepositorio;
-
+    
     @Autowired
-    RepositorioCotizaciones CotizacionesRepositorio;
+    RepositorioCotizaciones cotizaciones;
 
+    
+
+    public Usuario getUserById(String id) throws InverboyServicesException {
+        try {
+            return usuariosRepositorio.getUserByID(id);
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    public Set<Usuario> getAllUsers() throws InverboyServicesException {
+        try {
+            return usuariosRepositorio.getAllUsers();
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
+    
+    public Set<Cotizacion> getAllCotizadores() throws InverboyServicesException {
+        try {
+            return cotizaciones.getAllCotizaciones();
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    public Cotizacion getCotizadorById(int id) throws InverboyServicesException {
+        try {
+            return cotizaciones.getCotizadorByID(id);
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
 }

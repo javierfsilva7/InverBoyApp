@@ -5,10 +5,16 @@
  */
 package edu.eci.arsw.inverboyapp.persistence;
 
+import edu.eci.arsw.inverboyapp.model.Usuario;
+import java.util.Set;
+
 /**
  *
  * @author javierfsilva7
  */
 public interface RepositorioUsuarios {
     
+public Usuario getUserByID(String id) throws PersistenceException;  
+public Set<Usuario> getAllUsers() throws PersistenceException;
+
 }
