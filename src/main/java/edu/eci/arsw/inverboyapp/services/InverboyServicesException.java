@@ -13,7 +13,7 @@ import edu.eci.arsw.inverboyapp.persistence.PersistenceException;
  */
 public class InverboyServicesException extends Exception {
 
-    public InverboyServicesException(String string, PersistenceException ex) {
+   public InverboyServicesException(String string, PersistenceException ex) {
     }
     
 }
