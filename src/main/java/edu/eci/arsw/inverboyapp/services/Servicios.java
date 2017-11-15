@@ -6,9 +6,12 @@
 package edu.eci.arsw.inverboyapp.services;
 
 import edu.eci.arsw.inverboyapp.model.Cotizacion;
+import edu.eci.arsw.inverboyapp.model.Inmueble;
+import edu.eci.arsw.inverboyapp.model.Proyecto;
 import edu.eci.arsw.inverboyapp.model.Usuario;
 import edu.eci.arsw.inverboyapp.persistence.PersistenceException;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioCotizaciones;
+import edu.eci.arsw.inverboyapp.persistence.RepositorioProyectos;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioUsuarios;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +26,12 @@ public class Servicios {
 
     @Autowired
     RepositorioUsuarios usuariosRepositorio;
-    
+
     @Autowired
     RepositorioCotizaciones cotizaciones;
 
-    
+    @Autowired
+    RepositorioProyectos proyectos;
 
     public Usuario getUserById(String id) throws InverboyServicesException {
         try {
@@ -44,7 +48,7 @@ public class Servicios {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     }
-    
+
     public Set<Cotizacion> getAllCotizadores() throws InverboyServicesException {
         try {
             return cotizaciones.getAllCotizaciones();
@@ -59,5 +63,31 @@ public class Servicios {
         } catch (PersistenceException ex) {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
+    }
+
+    public Set<Proyecto> getAllProyectos() throws InverboyServicesException {
+        try {
+            return proyectos.getAllProyectos();
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    public Proyecto getProyectoByName(String name) throws InverboyServicesException {
+        try {
+            return proyectos.getProyectoByName(name);
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
+    
+    public Set<Inmueble> getInmueblesByProyecto(String proyecto)throws InverboyServicesException{
+    
+        try {
+            return proyectos.getInmuelesByProyecto(proyecto);
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
+    
     }
 }

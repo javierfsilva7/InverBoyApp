@@ -5,39 +5,34 @@
  */
 package edu.eci.arsw.inverboyapp.model;
 
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
  * @author javierfsilva7
  */
-public class Proyecto {
+public abstract class Proyecto {
     public String nombre;
-    public ConcurrentHashMap<String, Inmueble> inmuebles;
     public String direccion;
     public String tipo;
+    public String logo;
+    
 
-    public Proyecto(String nombre, ConcurrentHashMap<String, Inmueble> inmuebles, String direccion, String tipo) {
+    public Proyecto(String nombre, String direccion, String tipo, String logo) {
         this.nombre = nombre;
-        this.inmuebles = inmuebles;
         this.direccion = direccion;
         this.tipo = tipo;
+        this.logo=logo;
+        
+        
     }
-
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public ConcurrentHashMap<String, Inmueble> getInmuebles() {
-        return inmuebles;
-    }
-
-    public void setInmuebles(ConcurrentHashMap<String, Inmueble> inmuebles) {
-        this.inmuebles = inmuebles;
     }
 
     public String getDireccion() {

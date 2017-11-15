@@ -86,3 +86,113 @@ body {
     margin-right:0px;
     margin-top:-200px;
 }
+
+.mr-titulo{
+    position:fixed;
+    right: 0%;
+    left:43.5%;
+    top:50%;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:50px;
+}
+
+.mv-titulo{
+    position:fixed;
+    right: 0%;
+    left:72.5%;
+    top:50%;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:50px;
+}
+
+.ta-titulo{
+    position:fixed;
+    right: 0%;
+    left:14%;
+    top:50%;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:50px;
+}
+
+.ciudad-mr{
+    position:fixed;
+    right: 0%;
+    left:48.5%;
+    top:50%;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:90px;
+}
+
+
+.ciudad-ta{
+    position:fixed;
+    right: 0%;
+    left:17%;
+    top:50%;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:90px;
+}
+
+
+.ciudad-mv{
+    position:fixed;
+    right: 0%;
+    left:78%;
+    top:50%;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:90px;
+}
+
+.botonMR{
+
+    background-image:url(img/mr.png);
+    background-repeat:no-repeat;
+    height:239px;
+    width:237px;
+    background-position:center;
+    position:fixed;
+    right: 0%;
+    left:41.3%;
+    top:50%;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:-200px;
+}
+
+.botonTA{
+
+    background-image:url(img/ta.png);
+    background-repeat:no-repeat;
+    height:239px;
+    width:237px;
+    background-position:center;
+    position:fixed;
+    right: 0%;
+    left:10%;
+    top:50%;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:-200px;
+}
+
+.botonMV{
+
+    background-image:url(img/mv.png);
+    background-repeat:no-repeat;
+    height:239px;
+    width:237px;
+    background-position:center;
+    position:fixed;
+    right: 0%;
+    left:71%;
+    top:50%;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:-200px;
+}

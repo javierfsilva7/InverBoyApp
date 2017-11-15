@@ -5,14 +5,22 @@
  */
 
 var app = (function () {
+    
+    var proyecto="";
 
     return {
         
         inicio: function () {
             
-            console.info("isa mamasita rica te lo quiero hacer");
             window.location = "http://localhost:8080/proyectos.html";
+        },
+        
+        selectProyect: function (){
+            
+            
+            
         }
+        
 
     };
 
