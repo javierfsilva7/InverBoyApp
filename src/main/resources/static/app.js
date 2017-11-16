@@ -21,7 +21,8 @@ var app = (function () {
 
     var _fun3 = function (list) {
         for (var i = 0; i < list.length; i++) {
-            inmuebles[i] = {"seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo};
+            console.info(list[i]);
+            inmuebles[i] = {"seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "precio": list[i].precio};
         }
 
     };
@@ -48,12 +49,14 @@ var app = (function () {
                     $("table tbody").append("<tr>");
                     for (var j = 0; j < 4; j++) {
                         console.info(inmuebles[j+cont].numero);
-                        $("table tbody").append("<td>" + inmuebles[j+cont].numero + "</td>");
+                        $("table tbody").append("<td onclick=\"app.loadinmueble()\">" + inmuebles[j+cont].numero + "</td>");
                     }
                     cont+=4;
                     $("table tbody").append("</tr>");
                 }
             }, 250);
+        },loadinmueble :function(){
+            
         },
         inicio: function () {
             window.location.href = "/proyecto.html";
@@ -61,7 +64,8 @@ var app = (function () {
         selectProyect: function (name) {
             apiclient.getProyectoByName(name, _fun2);
             setTimeout(function () {
-                document.getElementById("container").innerHTML = "<h3>" + proyectoSeleccionado.nombre + "</h3>" + "<br></br><select id=\"torres\" onchange=\"app.loadTorre()\"></select><img src=\"" + proyectoSeleccionado.imp + "\"/><div id=\"tabla\"></div>";
+                document.getElementById("header").innerHTML ="<div class=\"col-md-4 encabezado\"><h1>" + proyectoSeleccionado.nombre + "</h1>" + "<br></br><select id=\"torres\" class =\"select\" onchange=\"app.loadTorre()\"></select>";
+                document.getElementById("container").innerHTML = "<div class=\"col-md-2\" id=\"tabla\"></div>";
                 for (var i = 1; i <= proyectoSeleccionado.torres; i++) {
                     document.getElementById("torres").innerHTML += "<option value='" + i + "'>Torre " + i + "</option>";
                 }

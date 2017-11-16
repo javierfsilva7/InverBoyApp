@@ -14,30 +14,19 @@ import java.util.Collection;
  */
 public class ProyectoApartamentos extends Proyecto {
 
-    public ArrayList<Inmueble> inmuebles = new ArrayList<>();
+    public ArrayList<Inmueble> inmuebles;
     public int torres;
     public int pisos;
     public String imp;
 
-    public ProyectoApartamentos(String nombre, String direccion, String tipo, String logo, int pisos, int torres, String imp) {
+    public ProyectoApartamentos(String nombre, String direccion, String tipo, String logo, int pisos, int torres, String imp, ArrayList<Inmueble> inmuebles) {
         super(nombre, direccion, tipo, logo);
         this.pisos = pisos;
         this.torres = torres;
         this.imp = imp;
-        crearInmuebles();
+        this.inmuebles=inmuebles;
     }
 
-    private void crearInmuebles() {
-
-        for (int i = 1; i <= torres; i++) {
-            for (int j = 1; j <= pisos; j++) {
-                inmuebles.add(new Inmueble(i + "", j + "01", "B"));
-                inmuebles.add(new Inmueble(i + "", j + "02", "A"));
-                inmuebles.add(new Inmueble(i + "", j + "03", "A"));
-                inmuebles.add(new Inmueble(i + "", j + "04", "B"));
-            }
-        }
-    }
 
     public ArrayList<Inmueble> getInmuebles() {
         return inmuebles;

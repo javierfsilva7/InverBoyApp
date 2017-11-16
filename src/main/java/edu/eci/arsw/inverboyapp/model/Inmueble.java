@@ -13,11 +13,14 @@ public class Inmueble {
     public String seccion;
     public String numero;
     public String tipo;
+    public String valor;
 
-    public Inmueble(String seccion, String numero, String tipo) {
+    public Inmueble(String seccion, String numero, String tipo, String valor) {
         this.seccion = seccion;
         this.numero = numero;
         this.tipo = tipo;
+        this.valor=valor;
+        
     }
 
     public String getSeccion() {
@@ -42,6 +45,14 @@ public class Inmueble {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
     }
     
     

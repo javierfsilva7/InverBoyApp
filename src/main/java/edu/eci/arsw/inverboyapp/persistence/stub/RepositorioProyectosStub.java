@@ -21,60 +21,130 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author javierfsilva7
- * 
- * 
+ *
+ *
  */
-
 @Service
 public class RepositorioProyectosStub implements RepositorioProyectos {
-    
+
     private static Map<String, ProyectoApartamentos> proyectosdb;
-        
-    static{
-        
-        proyectosdb=new ConcurrentHashMap<>();
-        proyectosdb.put("TierrAlta" , new ProyectoApartamentos("TierrAlta", "Carrera 9 este # 38-98", "VIS", "img/ta.png", 10, 9, "img/imp.jpg"));
-        proyectosdb.put("Monteverde", new ProyectoApartamentos("Monteverde", "Carrera 9 este # 38-98", "VIS", "img/mv.png", 12, 8, "img/imp.jpg"));
-        proyectosdb.put("MantaReal", new ProyectoApartamentos("MantaReal", "Carrera 9 este # 38-98", "VIS", "img/mr.png", 11, 13, "img/imp.jpg"));
+    private static ArrayList<Inmueble> inmuebles;
+
+    static {
+
+        inmuebles = new ArrayList<>();
+        inmuebles.add(new Inmueble("1", "101", "A", "79000000"));
+        inmuebles.add(new Inmueble("1", "102", "A", "79000000"));
+        inmuebles.add(new Inmueble("1", "103", "A", "79000000"));
+        inmuebles.add(new Inmueble("1", "104", "A", "79000000"));
+        inmuebles.add(new Inmueble("1", "201", "A", "79500000"));
+        inmuebles.add(new Inmueble("1", "202", "A", "79500001"));
+        inmuebles.add(new Inmueble("1", "203", "A", "79500002"));
+        inmuebles.add(new Inmueble("1", "204", "A", "79500003"));
+        inmuebles.add(new Inmueble("1", "301", "A", "80000000"));
+        inmuebles.add(new Inmueble("1", "302", "A", "80000001"));
+        inmuebles.add(new Inmueble("1", "303", "A", "80000002"));
+        inmuebles.add(new Inmueble("1", "304", "A", "80000003"));
+        inmuebles.add(new Inmueble("1", "401", "A", "80500000"));
+        inmuebles.add(new Inmueble("1", "402", "A", "80500000"));
+        inmuebles.add(new Inmueble("1", "403", "A", "80500000"));
+        inmuebles.add(new Inmueble("1", "404", "A", "80500000"));
+        inmuebles.add(new Inmueble("1", "501", "A", "81000000"));
+        inmuebles.add(new Inmueble("1", "502", "A", "81000000"));
+        inmuebles.add(new Inmueble("1", "503", "A", "81000000"));
+        inmuebles.add(new Inmueble("1", "504", "A", "81000000"));
+        inmuebles.add(new Inmueble("1", "601", "A", "81500000"));
+        inmuebles.add(new Inmueble("1", "602", "A", "81500001"));
+        inmuebles.add(new Inmueble("1", "603", "A", "81500002"));
+        inmuebles.add(new Inmueble("1", "604", "A", "81500003"));
+        inmuebles.add(new Inmueble("1", "701", "A", "82000000"));
+        inmuebles.add(new Inmueble("1", "702", "A", "82000001"));
+        inmuebles.add(new Inmueble("1", "703", "A", "82000002"));
+        inmuebles.add(new Inmueble("1", "704", "A", "82000003"));
+        inmuebles.add(new Inmueble("1", "801", "A", "82500000"));
+        inmuebles.add(new Inmueble("1", "802", "A", "82500001"));
+        inmuebles.add(new Inmueble("1", "803", "A", "82500002"));
+        inmuebles.add(new Inmueble("1", "804", "A", "82500003"));
+        inmuebles.add(new Inmueble("1", "901", "A", "83000000"));
+        inmuebles.add(new Inmueble("1", "902", "A", "83000001"));
+        inmuebles.add(new Inmueble("1", "903", "A", "83000002"));
+        inmuebles.add(new Inmueble("1", "904", "A", "83000003"));
+        inmuebles.add(new Inmueble("2", "102", "A", "79000000"));
+        inmuebles.add(new Inmueble("2", "102", "A", "79000000"));
+        inmuebles.add(new Inmueble("2", "103", "A", "79000000"));
+        inmuebles.add(new Inmueble("2", "104", "A", "79000000"));
+        inmuebles.add(new Inmueble("2", "201", "A", "79500000"));
+        inmuebles.add(new Inmueble("2", "202", "A", "79500001"));
+        inmuebles.add(new Inmueble("2", "203", "A", "79500002"));
+        inmuebles.add(new Inmueble("2", "204", "A", "79500003"));
+        inmuebles.add(new Inmueble("2", "301", "A", "80000000"));
+        inmuebles.add(new Inmueble("2", "302", "A", "80000001"));
+        inmuebles.add(new Inmueble("2", "303", "A", "80000002"));
+        inmuebles.add(new Inmueble("2", "304", "A", "80000003"));
+        inmuebles.add(new Inmueble("2", "401", "A", "80500000"));
+        inmuebles.add(new Inmueble("2", "402", "A", "80500000"));
+        inmuebles.add(new Inmueble("2", "403", "A", "80500000"));
+        inmuebles.add(new Inmueble("2", "404", "A", "80500000"));
+        inmuebles.add(new Inmueble("2", "501", "A", "81000000"));
+        inmuebles.add(new Inmueble("2", "502", "A", "81000000"));
+        inmuebles.add(new Inmueble("2", "503", "A", "81000000"));
+        inmuebles.add(new Inmueble("2", "504", "A", "81000000"));
+        inmuebles.add(new Inmueble("2", "601", "A", "81500000"));
+        inmuebles.add(new Inmueble("2", "602", "A", "81500001"));
+        inmuebles.add(new Inmueble("2", "603", "A", "81500002"));
+        inmuebles.add(new Inmueble("2", "604", "A", "81500003"));
+        inmuebles.add(new Inmueble("2", "701", "A", "82000000"));
+        inmuebles.add(new Inmueble("2", "702", "A", "82000001"));
+        inmuebles.add(new Inmueble("2", "703", "A", "82000002"));
+        inmuebles.add(new Inmueble("2", "704", "A", "82000003"));
+        inmuebles.add(new Inmueble("2", "801", "A", "82500000"));
+        inmuebles.add(new Inmueble("2", "802", "A", "82500001"));
+        inmuebles.add(new Inmueble("2", "803", "A", "82500002"));
+        inmuebles.add(new Inmueble("2", "804", "A", "82500003"));
+        inmuebles.add(new Inmueble("2", "901", "A", "83000000"));
+        inmuebles.add(new Inmueble("2", "902", "A", "83000001"));
+        inmuebles.add(new Inmueble("2", "903", "A", "83000002"));
+        inmuebles.add(new Inmueble("2", "904", "A", "83000003"));
+
+        proyectosdb = new ConcurrentHashMap<>();
+        proyectosdb.put("TierrAlta", new ProyectoApartamentos("TierrAlta", "Carrera 9 este # 38-98", "VIS", "img/ta.png", 9, 2, "img/imp.jpg", inmuebles));
+        proyectosdb.put("Monteverde", new ProyectoApartamentos("Monteverde", "Carrera 9 este # 38-98", "VIS", "img/mv.png", 9, 2, "img/imp.jpg", inmuebles));
+        proyectosdb.put("MantaReal", new ProyectoApartamentos("MantaReal", "Carrera 9 este # 38-98", "VIS", "img/mr.png", 9, 2, "img/imp.jpg", inmuebles));
+
     }
 
     @Override
     public Proyecto getProyectoByName(String name) throws PersistenceException {
-        if (!proyectosdb.containsKey(name)){
-            throw new PersistenceException("User not found:"+name);
-        }
-        else{
+        if (!proyectosdb.containsKey(name)) {
+            throw new PersistenceException("User not found:" + name);
+        } else {
             return proyectosdb.get(name);
         }
     }
 
     @Override
     public Set<Proyecto> getAllProyectos() throws PersistenceException {
-    
+
         return new LinkedHashSet<>(proyectosdb.values());
-    
-    
+
     }
 
     @Override
     public Set<Inmueble> getInmuelesByProyecto(String proyecto) throws PersistenceException {
-         if (!proyectosdb.containsKey(proyecto)){
-            throw new PersistenceException("Proyect not found:"+proyecto);
-        }
-        else{
-            return new HashSet<Inmueble> (proyectosdb.get(proyecto).getInmuebles());
+        if (!proyectosdb.containsKey(proyecto)) {
+            throw new PersistenceException("Proyect not found:" + proyecto);
+        } else {
+            return new HashSet<Inmueble>(proyectosdb.get(proyecto).getInmuebles());
         }
     }
-    
+
     @Override
     public ArrayList<Inmueble> getInmuebleByTorre(String proyecto, int torre) throws PersistenceException {
-         if (!proyectosdb.containsKey(proyecto)){
-            throw new PersistenceException("Proyect not found:"+proyecto);
-        }
-        else{
+        if (!proyectosdb.containsKey(proyecto)) {
+            throw new PersistenceException("Proyect not found:" + proyecto);
+        } else {
             return proyectosdb.get(proyecto).getInmueblesByTorre(torre);
         }
     }
-    
 
 }
