@@ -33,9 +33,9 @@ public class RepositorioProyectosStub implements RepositorioProyectos {
     static{
         
         proyectosdb=new ConcurrentHashMap<>();
-        proyectosdb.put("TierrAlta" , new ProyectoApartamentos("TierrAlta", "Carrera 9 este # 38-98", "VIS", "img/ta.png", 10, 9));
-        proyectosdb.put("Monteverde", new ProyectoApartamentos("Monteverde", "Carrera 9 este # 38-98", "VIS", "img/mv.png", 12, 8));
-        proyectosdb.put("MantaReal", new ProyectoApartamentos("MantaReal", "Carrera 9 este # 38-98", "VIS", "img/mr.png", 11, 13));
+        proyectosdb.put("TierrAlta" , new ProyectoApartamentos("TierrAlta", "Carrera 9 este # 38-98", "VIS", "img/ta.png", 10, 9, "img/imp.jpg"));
+        proyectosdb.put("Monteverde", new ProyectoApartamentos("Monteverde", "Carrera 9 este # 38-98", "VIS", "img/mv.png", 12, 8, "img/imp.jpg"));
+        proyectosdb.put("MantaReal", new ProyectoApartamentos("MantaReal", "Carrera 9 este # 38-98", "VIS", "img/mr.png", 11, 13, "img/imp.jpg"));
     }
 
     @Override
@@ -63,6 +63,16 @@ public class RepositorioProyectosStub implements RepositorioProyectos {
         }
         else{
             return new HashSet<Inmueble> (proyectosdb.get(proyecto).getInmuebles());
+        }
+    }
+    
+    @Override
+    public ArrayList<Inmueble> getInmuebleByTorre(String proyecto, int torre) throws PersistenceException {
+         if (!proyectosdb.containsKey(proyecto)){
+            throw new PersistenceException("Proyect not found:"+proyecto);
+        }
+        else{
+            return proyectosdb.get(proyecto).getInmueblesByTorre(torre);
         }
     }
     

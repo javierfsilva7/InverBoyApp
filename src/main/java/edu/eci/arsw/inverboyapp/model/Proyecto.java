@@ -6,6 +6,7 @@
 package edu.eci.arsw.inverboyapp.model;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -50,6 +51,7 @@ public abstract class Proyecto {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
-    
+
+       
     
 }

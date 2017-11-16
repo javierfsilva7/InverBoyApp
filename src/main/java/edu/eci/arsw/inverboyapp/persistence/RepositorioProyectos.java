@@ -5,9 +5,9 @@
  */
 package edu.eci.arsw.inverboyapp.persistence;
 
-import edu.eci.arsw.inverboyapp.model.Cotizacion;
 import edu.eci.arsw.inverboyapp.model.Inmueble;
 import edu.eci.arsw.inverboyapp.model.Proyecto;
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -21,5 +21,7 @@ public interface RepositorioProyectos {
     public Set<Proyecto> getAllProyectos() throws PersistenceException;
 
     public Set<Inmueble> getInmuelesByProyecto(String proyecto) throws PersistenceException;
+    
+    public ArrayList<Inmueble> getInmuebleByTorre(String proyecto, int torre) throws PersistenceException;
 
 }

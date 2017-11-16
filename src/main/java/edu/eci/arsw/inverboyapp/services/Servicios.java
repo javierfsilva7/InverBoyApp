@@ -13,6 +13,7 @@ import edu.eci.arsw.inverboyapp.persistence.PersistenceException;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioCotizaciones;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioProyectos;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioUsuarios;
+import java.util.ArrayList;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,5 +90,13 @@ public class Servicios {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     
+    }
+    
+    public ArrayList<Inmueble> getInmueblesByTorre(String proyecto, int torre) throws InverboyServicesException{
+    try {
+            return proyectos.getInmuebleByTorre(proyecto, torre);
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
     }
 }

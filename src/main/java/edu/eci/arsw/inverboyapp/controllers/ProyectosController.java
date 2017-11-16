@@ -47,9 +47,17 @@ public class ProyectosController {
     
     @RequestMapping(path = "/{proyecto}/inmuebles", method = RequestMethod.GET)
     public ResponseEntity<?> getInmueblesByProyecto(@PathVariable String proyecto) {
-        System.out.println(proyecto);
         try {
             return new ResponseEntity<>(services.getInmueblesByProyecto(proyecto), HttpStatus.ACCEPTED);
+        } catch (InverboyServicesException ex) {
+            return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @RequestMapping(path = "/{proyecto}/inmuebles/{torre}", method = RequestMethod.GET)
+    public ResponseEntity<?> getInmueblesByProyecto(@PathVariable String proyecto, @PathVariable int torre) {
+        try {
+            return new ResponseEntity<>(services.getInmueblesByTorre(proyecto, torre), HttpStatus.ACCEPTED);
         } catch (InverboyServicesException ex) {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }
