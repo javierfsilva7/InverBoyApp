@@ -39,6 +39,15 @@ apiclient = (function () {
             }).done(function () {
                 callback(x);
             });
+        },
+        getUsuarioByName: function(user, callback){
+            var x;
+            $.get("/usuarios/"+user, function (data) {
+                x = data;
+                console.info(x);                
+            }).done(function () {
+                callback(x);
+            });
         }
           
     };

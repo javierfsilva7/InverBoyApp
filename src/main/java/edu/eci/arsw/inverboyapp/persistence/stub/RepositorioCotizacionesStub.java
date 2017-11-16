@@ -26,7 +26,6 @@ public class RepositorioCotizacionesStub implements RepositorioCotizaciones{
     
     static{
         cotisdb=new ConcurrentHashMap<>();
-        cotisdb.put(1, new Cotizacion(new Usuario("", "", ""), new Inmueble("", "", "",""), 1));
     }
 
     @Override
@@ -42,5 +41,11 @@ public class RepositorioCotizacionesStub implements RepositorioCotizaciones{
     @Override
     public Set<Cotizacion> getAllCotizaciones() {
         return new LinkedHashSet<>(cotisdb.values());
+    }
+
+    @Override
+    public void setCotizacion(Cotizacion cotizacion) throws PersistenceException {
+        cotizacion.setId(cotisdb.size()+1);
+        cotisdb.put(cotisdb.size()+1, cotizacion);
     }
 }

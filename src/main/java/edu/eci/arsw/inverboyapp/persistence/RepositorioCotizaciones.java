@@ -16,4 +16,5 @@ import java.util.Set;
 public interface RepositorioCotizaciones {
      public Cotizacion getCotizadorByID(Integer id) throws PersistenceException;
      public Set<Cotizacion> getAllCotizaciones() throws PersistenceException;
+    public void setCotizacion(Cotizacion cotizacion) throws PersistenceException;
 }

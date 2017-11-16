@@ -99,4 +99,12 @@ public class Servicios {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     }
+
+    public void addCotizacion(Cotizacion cotizacion) throws InverboyServicesException{
+        try{
+            cotizaciones.setCotizacion(cotizacion);            
+        }catch(PersistenceException ex){        
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
 }

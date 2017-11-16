@@ -14,11 +14,13 @@ public class Usuario {
     public String nombre; 
     public String celular;
     public String correo;
+    public String rol;
 
-    public Usuario(String nombre, String celular, String correo) {
+    public Usuario(String nombre, String celular, String correo, String rol) {
         this.nombre = nombre;
         this.celular = celular;
         this.correo = correo;
+        this.rol=rol;
     }
 
     public String getNombre() {
@@ -45,5 +47,9 @@ public class Usuario {
         this.correo = correo;
     }
     
+    
+    public String getRol() {
+        return rol;
+    }
     
 }

@@ -16,5 +16,6 @@ public interface RepositorioUsuarios {
     
 public Usuario getUserByID(String id) throws PersistenceException;  
 public Set<Usuario> getAllUsers() throws PersistenceException;
+public String getRolById(String id) throws PersistenceException;
 
 }

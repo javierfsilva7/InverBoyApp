@@ -15,11 +15,10 @@ public class Cotizacion {
     public Usuario cliente;
     public Inmueble inmueble;
     public int id;
+    public Usuario asesor;
 
-    public Cotizacion(Usuario cliente, Inmueble inmueble, int id) {
+    public Cotizacion(Usuario cliente) {
         this.cliente = cliente;
-        this.inmueble = inmueble;
-        this.id = id;
     }
 
     public Usuario getCliente() {
@@ -45,6 +44,15 @@ public class Cotizacion {
     public void setId(int id) {
         this.id = id;
     }
+
+    public Usuario getAsesor() {
+        return asesor;
+    }
+
+    public void setAsesor(Usuario asesor) {
+        this.asesor = asesor;
+    }
+    
     
     
     
