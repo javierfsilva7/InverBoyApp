@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/cotizaciones")
 public class CotizacionesController {
-    
+
     @Autowired
     Servicios services;
 
@@ -48,19 +48,31 @@ public class CotizacionesController {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> setCotizaciones(@RequestBody Cotizacion cotizacion){
+    public ResponseEntity<?> setCotizaciones(@RequestBody Cotizacion cotizacion) {
         try {
             Cotizacion c = new Cotizacion(cotizacion.getCliente());
             System.out.println(cotizacion.getCliente());
-            services.addCotizacion(c);            
+            services.addCotizacion(c);
             //LOG.log(Level.INFO, "Getting letter from client {0}:{1}", new Object[]{cotizacion.getId(), cotizacion.getCliente(), cotizacion.getInmueble()});
             //msmt.convertAndSend("/topic/wupdate." + gameid.toString(), tmp);
 
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (InverboyServicesException ex) {
             Logger.getLogger(CotizacionesController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("No existe el juego",HttpStatus.BAD_REQUEST); 
+            return new ResponseEntity<>("No existe el juego", HttpStatus.BAD_REQUEST);
         }
     }
+
+    @RequestMapping(path = "/usuario/{user}", method = RequestMethod.GET)
+    public ResponseEntity<?> getLastCotizadorByUser(@PathVariable String user) {
+        System.out.println(user);
+        try {
+            return new ResponseEntity<>(services.getLastCotizadorByUser(user), HttpStatus.ACCEPTED);
+        } catch (InverboyServicesException ex) {
+            return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

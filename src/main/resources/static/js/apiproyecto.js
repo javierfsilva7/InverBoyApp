@@ -12,6 +12,8 @@ var apiproyecto = (function () {
     var torreSeleccionada;
     var apartamentoSel;
     var usuario;
+    var cotizacionSel;
+    var stompClient = null;
 
     var _fun = function (list) {
         console.info("entro");
@@ -32,6 +34,11 @@ var apiproyecto = (function () {
 
     };
 
+    var _fun4 = function (cotizacion) {
+        console.info(cotizacion.id);
+        cotizacionSel = cotizacion.id;
+    };
+
     $(function () {
         controlador.getAllProyectos(_fun);
         setTimeout(function () {
@@ -45,6 +52,7 @@ var apiproyecto = (function () {
 
     return {
         getProyectos: function (user) {
+            console.info(user);
             usuario = user;
         },
         loadTorre: function () {
@@ -68,6 +76,11 @@ var apiproyecto = (function () {
             apartamentoSel = numero;
             document.getElementById("cotizador").innerHTML = ("<div class=\"col-md-5\"><h4>Apartamento:" + numero + "</h4><input type=\"text\"></input></div>");
         }, selectProyect: function (name, user) {
+            console.info(user);
+            controlador.getLastCotizacionByUser(user, _fun4);
+            setTimeout(function () {
+                apiproyecto.wsconnect();
+            }, 1000);
             controlador.getProyectoByName(name, _fun2);
             setTimeout(function () {
                 document.getElementById("header").innerHTML = "<div class=\"col-md-4 encabezado\"><h1>" + proyectoSeleccionado.nombre + "</h1>" + "<br></br><select id=\"torres\" class =\"select\" onchange=\"apiproyecto.loadTorre()\"></select></div><div id=\"cotizador\" class=\"col-md-4\"></div> ";
@@ -76,6 +89,20 @@ var apiproyecto = (function () {
                     document.getElementById("torres").innerHTML += "<option value='" + i + "'>Torre " + i + "</option>";
                 }
             }, 150);
+        }, wsconnect: function () {
+
+            var socket = new SockJS('/stompendpoint');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+
+                //subscriptions
+
+                stompClient.subscribe("/topic/cotizacion." + cotizacionSel.toString(), function (event) {
+                    console.info(event);
+                });
+
+            });
         }
     };
 })();

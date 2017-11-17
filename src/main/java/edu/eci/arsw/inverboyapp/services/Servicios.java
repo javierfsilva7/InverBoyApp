@@ -107,4 +107,11 @@ public class Servicios {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     }
+    public Cotizacion getLastCotizadorByUser(String user) throws InverboyServicesException{
+    try {
+            return cotizaciones.getLastCotizadorByUser(user);
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
 }

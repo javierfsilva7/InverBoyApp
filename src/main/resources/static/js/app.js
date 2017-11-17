@@ -28,6 +28,7 @@ var app = (function () {
                         dataType: "json",
                         contentType: "application/json; charset=utf-8"
                     });
+                    apiproyecto.getProyectos(username.nombre);
                     window.location.href = "/proyecto.html";
                 } else {
                     window.location.href = "/cotizador.html";

@@ -6,7 +6,7 @@
 
 
 controlador = (function () {
-
+    var nameuser;
     return {
         getAllProyectos: function (callback) {
             var x;
@@ -43,6 +43,7 @@ controlador = (function () {
         },
         getUsuarioByName: function(user, callback){
             var x;
+            nameuser=user;
             $.get("/usuarios/"+user, function (data) {
                 x = data;
                 console.info(x);                
@@ -55,6 +56,16 @@ controlador = (function () {
             $.get("/cotizaciones", function (data) {
                 x = data;
                 console.info(x+"COTIZACIONES")
+            }).done(function () {
+                callback(x);
+            });
+        },
+        getLastCotizacionByUser: function(user, callback){
+            console.info("Entro last");
+            var x;
+            $.get("/cotizaciones/usuario/"+nameuser, function (data) {
+                x = data;
+                console.info(x);                
             }).done(function () {
                 callback(x);
             });
