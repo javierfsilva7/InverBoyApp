@@ -5,21 +5,35 @@
  */
 package edu.eci.arsw.inverboyapp.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author javierfsilva7
  */
 
-public class Cotizacion {
+public class Cotizacion implements Serializable{
     
     public Usuario cliente;
     public Inmueble inmueble;
     public int id;
     public Usuario asesor;
+    
+    public  Cotizacion(){
+    }
 
     public Cotizacion(Usuario cliente) {
         this.cliente = cliente;
     }
+
+    public Cotizacion(Usuario cliente, Inmueble inmueble, int id, Usuario asesor) {
+        this.cliente = cliente;
+        this.inmueble = inmueble;
+        this.id = id;
+        this.asesor = asesor;
+    }
+    
+    
 
     public Usuario getCliente() {
         return cliente;

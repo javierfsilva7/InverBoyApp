@@ -5,16 +5,21 @@
  */
 package edu.eci.arsw.inverboyapp.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author javierfsilva7
  */
-public class Usuario {
+public class Usuario implements Serializable{
     
     public String nombre; 
     public String celular;
     public String correo;
     public String rol;
+    
+    public Usuario(){
+    }
 
     public Usuario(String nombre, String celular, String correo, String rol) {
         this.nombre = nombre;

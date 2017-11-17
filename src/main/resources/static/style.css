@@ -13,7 +13,8 @@ and open the template in the editor.
 body {
     background-color: #444;
     background: url(/img/background.jpg);
-    background-repeat: no-repeat;  
+    background-size: 100%;
+    
 
 }
 
@@ -45,3 +46,13 @@ td{
     align-content: center;  
 
 }
+
+.col-md-2[id="contenedorlog"] {
+    
+    width: 20%;
+    display: block;
+    margin-left: 40%;
+    margin-right: auto;
+    margin-top: 10%;
+}
+

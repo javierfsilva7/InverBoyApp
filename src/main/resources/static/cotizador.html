@@ -6,25 +6,24 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Proyectos</title>
+        <title>Cotizadores</title>        
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <script src="/webjars/jquery/jquery.min.js"></script>
         <script src="/webjars/sockjs-client/sockjs.min.js"></script>
         <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet"
               href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
-        <script src="/webjars/stomp-websocket/stomp.min.js"></script>                
-        <script src="/js/apiproyecto.js"></script>
+        <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+        <script src="/js/apicotizador.js"></script>
         <script src="/js/controlador.js"></script>
         <link rel="stylesheet" href="style.css" type="text/css"/>
     </head>
-    <body>
+    <body onload="setInterval('apicotizador.load()', 5000)">
         <div>
             <div id="header" class="row">                               
             </div>
-            
+
             <div id="container" class="row contenedor">
             </div>
         </div>

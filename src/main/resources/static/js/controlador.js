@@ -5,13 +5,14 @@
  */
 
 
-apiclient = (function () {
+controlador = (function () {
 
     return {
-        getProyectos: function (callback) {
+        getAllProyectos: function (callback) {
             var x;
-            $.get("proyectos", function (data) {
+            $.get("/proyectos", function (data) {
                 x = data;
+                console.info(x+"CONTROLLER")
             }).done(function () {
                 callback(x);
             });
@@ -45,6 +46,15 @@ apiclient = (function () {
             $.get("/usuarios/"+user, function (data) {
                 x = data;
                 console.info(x);                
+            }).done(function () {
+                callback(x);
+            });
+        },
+        getAllCotizaciones : function (callback) {
+            var x;
+            $.get("/cotizaciones", function (data) {
+                x = data;
+                console.info(x+"COTIZACIONES")
             }).done(function () {
                 callback(x);
             });

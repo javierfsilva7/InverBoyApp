@@ -25,8 +25,8 @@ public class RepositorioUsuariosStub implements RepositorioUsuarios{
     
     static{
         usersdb=new ConcurrentHashMap<>();
-        usersdb.put("3112681076", new Usuario("Javi", "3112681076", "castellanos@gmail.com","cliente"));
-        usersdb.put("3145678954", new Usuario("Isabel", "3145678954", "castellanos@gmail.com", "asesor"));
+        usersdb.put("3112681076", new Usuario("Isabel", "3112681076", "castellanos@gmail.com","cliente"));
+        usersdb.put("3124448033", new Usuario("Javi", "3124448033", "castellanos@gmail.com", "asesor"));
     }
 
     @Override

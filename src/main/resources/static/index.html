@@ -17,8 +17,8 @@ and open the template in the editor.
         <link rel="stylesheet"
               href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" />
         <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-        <script src="/app.js"></script>
-        <script src="/apiclient.js"></script>
+        <script src="/js/app.js"></script>
+        <script src="/js/controlador.js"></script>
 
 
     </head>
@@ -27,17 +27,17 @@ and open the template in the editor.
 
     <body>
         <div >
-            <div >                                
-                <div >
-                    <img src="/img/LOGO.jpg" class="img-responsive" alt="Conxole Admin"/>
+            
+            <div clas="row">
+                <div class="col-md-2" id="contenedorlog"> 
+                    
+                    <img src="/img/logo-png.png" class="img-responsive" alt="Conxole Admin"/>
+                    <input placeholder="Celular" id="username" type="text" class="form-control form-control-success">
+                    <input  placeholder="Contraseña" id="password" type="password" class=" form-control form-control-success">
+                    <br></br>
+                               
+                    <button id="login" class="btn btn-success btn-lg btn-block" onclick="app.inicio()"> Ingresar </button>
                 </div>
-            </div>
-            <div >
-                <input placeholder="Celular" id="username" type="text">
-                <input  placeholder="Contraseña" id="password" type="password">
-                <br></br>
-                <button id="login" onclick="app.inicio()"> Ingresar </button>
-
             </div>
         </div>
 

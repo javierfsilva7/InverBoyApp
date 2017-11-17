@@ -51,8 +51,9 @@ public class CotizacionesController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> setCotizaciones(@RequestBody Cotizacion cotizacion){
         try {
-
-            services.addCotizacion(cotizacion);            
+            Cotizacion c = new Cotizacion(cotizacion.getCliente());
+            System.out.println(cotizacion.getCliente());
+            services.addCotizacion(c);            
             //LOG.log(Level.INFO, "Getting letter from client {0}:{1}", new Object[]{cotizacion.getId(), cotizacion.getCliente(), cotizacion.getInmueble()});
             //msmt.convertAndSend("/topic/wupdate." + gameid.toString(), tmp);
 

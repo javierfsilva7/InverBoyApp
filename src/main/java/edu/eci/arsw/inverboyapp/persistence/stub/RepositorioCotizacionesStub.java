@@ -26,6 +26,8 @@ public class RepositorioCotizacionesStub implements RepositorioCotizaciones{
     
     static{
         cotisdb=new ConcurrentHashMap<>();
+        cotisdb.put(cotisdb.size()+1, new Cotizacion(new Usuario("Javi", "3112681076", "@mail", "cliente")));
+        cotisdb.put(cotisdb.size()+1, new Cotizacion(new Usuario("Javi", "3112681076", "@mail", "cliente")));
     }
 
     @Override
