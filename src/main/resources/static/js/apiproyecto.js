@@ -40,21 +40,19 @@ var apiproyecto = (function () {
     };
 
     $(function () {
+        document.getElementById("header").innerHTML = "<div class=\"col-md-4 encabezado\"><h1 id=titulo>Proyecto </h1><img id=\"logo\"/><br></br><select id=\"proyectos\"class =\"select\" onchange=\"apiproyecto.selectProyect()\"></select><br></br><select id=\"torres\" class =\"select\" onchange=\"apiproyecto.loadTorre()\"></select></div><div id=\"cotizador\" class=\"col-md-4\"></div> ";
+        document.getElementById("container").innerHTML = "<div class=\"col-md-2\" id=\"tabla\"></div>";
+
         controlador.getAllProyectos(_fun);
         setTimeout(function () {
             for (var i = 0; i < proyectos.length; i++) {
-                var name = proyectos[i].nombre;
-                var markup = "<div class=\"col-md-4\"><h3 style=\"margin-left:15%\">" + name + "</h3><img src=\"" + proyectos[i].logo + "\"/><br></br><button style=\"margin-left: 22%\" class=\"btn btn-info\" onclick=\"apiproyecto.selectProyect('" + name + "','" + usuario + "');\">Cotizar</button>";
-                document.getElementById("container").innerHTML += markup;
+                document.getElementById("proyectos").innerHTML += "<option value='" + proyectos[i].nombre + "'>Proyecto " + proyectos[i].nombre + "</option>";
             }
         }, 200);
     });
 
     return {
-        getProyectos: function (user) {
-            console.info(user);
-            usuario = user;
-        },
+        
         loadTorre: function () {
             var markup = ("<table class=\"table table-bordered\"><tbody></tbody></table>");
             document.getElementById("tabla").innerHTML = markup;
@@ -75,17 +73,19 @@ var apiproyecto = (function () {
         }, loadinmueble: function (numero) {
             apartamentoSel = numero;
             document.getElementById("cotizador").innerHTML = ("<div class=\"col-md-5\"><h4>Apartamento:" + numero + "</h4><input type=\"text\"></input></div>");
-        }, selectProyect: function (name, user) {
-            console.info(user);
-            controlador.getLastCotizacionByUser(user, _fun4);
+        }, selectProyect: function () {
+            var proyecto = document.getElementById("proyectos").value;
+            //controlador.getLastCotizacionByUser(user, _fun4);
+            //setTimeout(function () {
+              //  apiproyecto.wsconnect();
+            //}, 1000);
+            controlador.getProyectoByName(proyecto, _fun2);
             setTimeout(function () {
-                apiproyecto.wsconnect();
-            }, 1000);
-            controlador.getProyectoByName(name, _fun2);
-            setTimeout(function () {
-                document.getElementById("header").innerHTML = "<div class=\"col-md-4 encabezado\"><h1>" + proyectoSeleccionado.nombre + "</h1>" + "<br></br><select id=\"torres\" class =\"select\" onchange=\"apiproyecto.loadTorre()\"></select></div><div id=\"cotizador\" class=\"col-md-4\"></div> ";
-                document.getElementById("container").innerHTML = "<div class=\"col-md-2\" id=\"tabla\"></div>";
+                document.getElementById("titulo").innerHTML = proyectoSeleccionado.nombre;
+                document.getElementById("torres").innerHTML = "";
+                document.getElementById("tabla").innerHTML = "";
                 for (var i = 1; i <= proyectoSeleccionado.torres; i++) {
+                    document.getElementById("logo").src=proyectoSeleccionado.logo;
                     document.getElementById("torres").innerHTML += "<option value='" + i + "'>Torre " + i + "</option>";
                 }
             }, 150);

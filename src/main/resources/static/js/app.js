@@ -19,16 +19,15 @@ var app = (function () {
             setTimeout(function () {
                 console.info(username.rol);
                 if (username.rol === 'cliente') {
-                    var cotizacion = {"cliente": {"nombre": username.nombre, "celular": username.celular, "correo": username.correo, "rol": username.rol}, "inmueble": null, "id": 0, "asesor": null};
-                    console.info(cotizacion);
+                    var sesion = {"id":0,"cliente": {"nombre": username.nombre, "celular": username.celular, "correo": username.correo, "rol": username.rol},"asesor":null,"cotizaciones":null,"estado":null}
+                    console.info(sesion);
                     $.ajax({
-                        url: "/cotizaciones",
+                        url: "/sesiones",
                         type: "POST",
-                        data: JSON.stringify(cotizacion),
+                        data: JSON.stringify(sesion),
                         dataType: "json",
                         contentType: "application/json; charset=utf-8"
                     });
-                    apiproyecto.getProyectos(username.nombre);
                     window.location.href = "/proyecto.html";
                 } else {
                     window.location.href = "/cotizador.html";

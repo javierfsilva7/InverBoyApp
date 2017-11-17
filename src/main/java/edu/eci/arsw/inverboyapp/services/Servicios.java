@@ -8,10 +8,12 @@ package edu.eci.arsw.inverboyapp.services;
 import edu.eci.arsw.inverboyapp.model.Cotizacion;
 import edu.eci.arsw.inverboyapp.model.Inmueble;
 import edu.eci.arsw.inverboyapp.model.Proyecto;
+import edu.eci.arsw.inverboyapp.model.Sesion;
 import edu.eci.arsw.inverboyapp.model.Usuario;
 import edu.eci.arsw.inverboyapp.persistence.PersistenceException;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioCotizaciones;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioProyectos;
+import edu.eci.arsw.inverboyapp.persistence.RepositorioSesiones;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioUsuarios;
 import java.util.ArrayList;
 import java.util.Set;
@@ -33,6 +35,9 @@ public class Servicios {
 
     @Autowired
     RepositorioProyectos proyectos;
+    
+    @Autowired 
+    RepositorioSesiones sesiones;
 
     public Usuario getUserById(String id) throws InverboyServicesException {
         try {
@@ -81,35 +86,60 @@ public class Servicios {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     }
-    
-    public Set<Inmueble> getInmueblesByProyecto(String proyecto)throws InverboyServicesException{
-    
+
+    public Set<Inmueble> getInmueblesByProyecto(String proyecto) throws InverboyServicesException {
+
         try {
             return proyectos.getInmuelesByProyecto(proyecto);
         } catch (PersistenceException ex) {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
-    
+
     }
-    
-    public ArrayList<Inmueble> getInmueblesByTorre(String proyecto, int torre) throws InverboyServicesException{
-    try {
+
+    public ArrayList<Inmueble> getInmueblesByTorre(String proyecto, int torre) throws InverboyServicesException {
+        try {
             return proyectos.getInmuebleByTorre(proyecto, torre);
         } catch (PersistenceException ex) {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     }
 
-    public void addCotizacion(Cotizacion cotizacion) throws InverboyServicesException{
-        try{
-            cotizaciones.setCotizacion(cotizacion);            
-        }catch(PersistenceException ex){        
+    public void addCotizacion(Cotizacion cotizacion) throws InverboyServicesException {
+        try {
+            cotizaciones.setCotizacion(cotizacion);
+        } catch (PersistenceException ex) {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     }
-    public Cotizacion getLastCotizadorByUser(String user) throws InverboyServicesException{
-    try {
+
+    public Cotizacion getLastCotizadorByUser(String user) throws InverboyServicesException {
+        try {
             return cotizaciones.getLastCotizadorByUser(user);
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading Cotizador Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    public Set<Sesion> getAllSesiones() throws InverboyServicesException {
+        try {
+            return sesiones.getAllSesiones();
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading Sesion Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
+    
+    public Sesion getSesionById(int id) throws InverboyServicesException {
+        try {
+            return sesiones.getSesionById(id);
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading Sesion Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
+
+    public void setSesion(Sesion sesion) throws InverboyServicesException{
+    try {
+            sesiones.setSesion(sesion);
         } catch (PersistenceException ex) {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }

@@ -69,6 +69,10 @@ public class RepositorioProyectosStub implements RepositorioProyectos {
         inmuebles.add(new Inmueble("1", "902", "A", "83000001"));
         inmuebles.add(new Inmueble("1", "903", "A", "83000002"));
         inmuebles.add(new Inmueble("1", "904", "A", "83000003"));
+        inmuebles.add(new Inmueble("1", "1001", "A", "83500000"));
+        inmuebles.add(new Inmueble("1", "1002", "A", "83500001"));
+        inmuebles.add(new Inmueble("1", "1003", "A", "83500002"));
+        inmuebles.add(new Inmueble("1", "1004", "A", "83500003"));
         inmuebles.add(new Inmueble("2", "102", "A", "79000000"));
         inmuebles.add(new Inmueble("2", "102", "A", "79000000"));
         inmuebles.add(new Inmueble("2", "103", "A", "79000000"));
@@ -105,9 +109,13 @@ public class RepositorioProyectosStub implements RepositorioProyectos {
         inmuebles.add(new Inmueble("2", "902", "A", "83000001"));
         inmuebles.add(new Inmueble("2", "903", "A", "83000002"));
         inmuebles.add(new Inmueble("2", "904", "A", "83000003"));
+        inmuebles.add(new Inmueble("2", "1001", "A", "83500000"));
+        inmuebles.add(new Inmueble("2", "1002", "A", "83500001"));
+        inmuebles.add(new Inmueble("2", "1003", "A", "83500002"));
+        inmuebles.add(new Inmueble("2", "1004", "A", "83500003"));
 
         proyectosdb = new ConcurrentHashMap<>();
-        proyectosdb.put("TierrAlta", new ProyectoApartamentos("TierrAlta", "Carrera 9 este # 38-98", "VIS", "img/ta.png", 9, 2, "img/imp.jpg", inmuebles));
+        proyectosdb.put("TierrAlta", new ProyectoApartamentos("TierrAlta", "Carrera 9 este # 38-98", "VIS", "img/ta.png", 10, 2, "img/imp.jpg", inmuebles));
         proyectosdb.put("Monteverde", new ProyectoApartamentos("Monteverde", "Carrera 9 este # 38-98", "VIS", "img/mv.png", 9, 2, "img/imp.jpg", inmuebles));
         proyectosdb.put("MantaReal", new ProyectoApartamentos("MantaReal", "Carrera 9 este # 38-98", "VIS", "img/mr.png", 9, 2, "img/imp.jpg", inmuebles));
 
