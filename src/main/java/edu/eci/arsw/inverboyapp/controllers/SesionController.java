@@ -48,7 +48,7 @@ public class SesionController {
     }
     
     @RequestMapping(path = "/{sesion}", method = RequestMethod.GET)
-    public ResponseEntity<?> getProyectosByName(@PathVariable int sesion) {
+    public ResponseEntity<?> getSesionById(@PathVariable int sesion) {
         System.out.println(sesion);
         try {
             return new ResponseEntity<>(services.getSesionById(sesion), HttpStatus.ACCEPTED);

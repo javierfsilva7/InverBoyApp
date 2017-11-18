@@ -83,6 +83,14 @@ controlador = (function () {
             });
 
         },
+        getSesionById: function(sesion, callback){
+            var x;
+            $.get("/sesiones/" + sesion, function (data) {
+                x = data;
+            }).done(function () {
+                callback(x);
+            });
+        },
         wsconnect: function (sesion) {
 
             var socket = new SockJS('/stompendpoint');
@@ -98,6 +106,7 @@ controlador = (function () {
                     document.getElementById("titulo").innerHTML = evento.proyecto.nombre;
                     document.getElementById("torres").innerHTML = "";
                     document.getElementById("tabla").innerHTML = "";
+                    document.getElementById("nameuser").innerHTML = evento.cliente.nombre;
                     document.getElementById("logo").src = evento.proyecto.logo;
                     for (var i = 1; i <= evento.proyecto.torres; i++) {
                         document.getElementById("torres").innerHTML += "<option value='" + i + "'>Torre " + i + "</option>";
