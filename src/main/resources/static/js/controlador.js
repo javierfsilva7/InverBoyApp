@@ -83,7 +83,7 @@ controlador = (function () {
             });
 
         },
-        getSesionById: function(sesion, callback){
+        getSesionById: function (sesion, callback) {
             var x;
             $.get("/sesiones/" + sesion, function (data) {
                 x = data;
