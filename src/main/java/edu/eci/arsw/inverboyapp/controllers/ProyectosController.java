@@ -10,6 +10,7 @@ import edu.eci.arsw.inverboyapp.services.Servicios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +26,9 @@ public class ProyectosController {
 
     @Autowired
     Servicios services;
+    
+    @Autowired
+    SimpMessagingTemplate msmt;
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getAllProyectos() {
@@ -44,7 +48,7 @@ public class ProyectosController {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    
+
     @RequestMapping(path = "/{proyecto}/inmuebles", method = RequestMethod.GET)
     public ResponseEntity<?> getInmueblesByProyecto(@PathVariable String proyecto) {
         try {
@@ -53,7 +57,7 @@ public class ProyectosController {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    
+
     @RequestMapping(path = "/{proyecto}/inmuebles/{torre}", method = RequestMethod.GET)
     public ResponseEntity<?> getInmueblesByProyecto(@PathVariable String proyecto, @PathVariable int torre) {
         try {

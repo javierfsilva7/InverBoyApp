@@ -35,8 +35,8 @@ public class Servicios {
 
     @Autowired
     RepositorioProyectos proyectos;
-    
-    @Autowired 
+
+    @Autowired
     RepositorioSesiones sesiones;
 
     public Usuario getUserById(String id) throws InverboyServicesException {
@@ -128,7 +128,7 @@ public class Servicios {
             throw new InverboyServicesException("Error loading Sesion Data:" + ex.getLocalizedMessage(), ex);
         }
     }
-    
+
     public Sesion getSesionById(int id) throws InverboyServicesException {
         try {
             return sesiones.getSesionById(id);
@@ -137,11 +137,26 @@ public class Servicios {
         }
     }
 
-    public void setSesion(Sesion sesion) throws InverboyServicesException{
-    try {
+    public void setSesion(Sesion sesion) throws InverboyServicesException {
+        try {
             sesiones.setSesion(sesion);
         } catch (PersistenceException ex) {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     }
+    public Sesion updateSesion(Sesion sesion) throws InverboyServicesException {
+        try {
+            return sesiones.updateSesion(sesion);
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
+    public Sesion getLastSesionByUser(String user) throws InverboyServicesException {
+        try {
+            return sesiones.getLastSesionByUser(user);
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading Cotizador Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
+
 }

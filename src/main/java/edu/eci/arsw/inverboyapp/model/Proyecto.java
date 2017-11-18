@@ -5,15 +5,15 @@
  */
 package edu.eci.arsw.inverboyapp.model;
 
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.io.Serializable;
 
 /**
  *
  * @author javierfsilva7
  */
-public abstract class Proyecto {
+@JsonDeserialize(as = ProyectoApartamentos.class)
+public abstract class Proyecto implements Serializable {
     public String nombre;
     public String direccion;
     public String tipo;
@@ -28,6 +28,11 @@ public abstract class Proyecto {
         
         
     }
+
+    public Proyecto() {
+    }
+    
+    
     public String getNombre() {
         return nombre;
     }
@@ -50,6 +55,14 @@ public abstract class Proyecto {
 
     public void setTipo(String tipo) {
         this.tipo = tipo;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
        

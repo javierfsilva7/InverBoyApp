@@ -6,20 +6,20 @@
 
 
 controlador = (function () {
-    var nameuser;
+    var stompClient = null;
+
     return {
         getAllProyectos: function (callback) {
             var x;
             $.get("/proyectos", function (data) {
                 x = data;
-                console.info(x+"CONTROLLER")
             }).done(function () {
                 callback(x);
             });
         },
         getProyectoByName: function (name, callback) {
             var x;
-            $.get("/proyectos/"+name, function (data) {
+            $.get("/proyectos/" + name, function (data) {
                 x = data;
             }).done(function () {
                 callback(x);
@@ -27,50 +27,86 @@ controlador = (function () {
         },
         getInmueblesByProyecto: function (name, callback) {
             var x;
-            $.get("/proyectos/"+name+"/inmuebles", function (data) {
+            $.get("/proyectos/" + name + "/inmuebles", function (data) {
                 x = data;
             }).done(function () {
                 callback(x);
             });
         },
-        getInmuebleByTorre : function (name, torre, callback) {
+        getInmuebleByTorre: function (name, torre, callback) {
             var x;
-            $.get("/proyectos/"+name+"/inmuebles/"+torre, function (data) {
+            $.get("/proyectos/" + name + "/inmuebles/" + torre, function (data) {
                 x = data;
             }).done(function () {
                 callback(x);
             });
         },
-        getUsuarioByName: function(user, callback){
+        getUsuarioByName: function (user, callback) {
             var x;
-            nameuser=user;
-            $.get("/usuarios/"+user, function (data) {
+            $.get("/usuarios/" + user, function (data) {
                 x = data;
-                console.info(x);                
             }).done(function () {
                 callback(x);
             });
         },
-        getAllCotizaciones : function (callback) {
+        getAllCotizaciones: function (callback) {
             var x;
             $.get("/cotizaciones", function (data) {
                 x = data;
-                console.info(x+"COTIZACIONES")
             }).done(function () {
                 callback(x);
             });
         },
-        getLastCotizacionByUser: function(user, callback){
-            console.info("Entro last");
+        getAllSesiones: function (callback) {
             var x;
-            $.get("/cotizaciones/usuario/"+nameuser, function (data) {
+            $.get("/sesiones", function (data) {
                 x = data;
-                console.info(x);                
             }).done(function () {
                 callback(x);
             });
+        },
+        getLastCotizacionByUser: function (user, callback) {
+            console.info("Entro last");
+            var x;
+            $.get("/cotizaciones/usuario/" + user, function (data) {
+                x = data;
+            }).done(function () {
+                callback(x);
+            });
+        },
+        getLastSesionByUser: function (user, callback) {
+            var x;
+            $.get("/sesiones/usuario/" + user, function (data) {
+                x = data;
+            }).done(function () {
+                callback(x);
+            });
+
+        },
+        wsconnect: function (sesion) {
+
+            var socket = new SockJS('/stompendpoint');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+
+                //subscriptions
+
+                stompClient.subscribe("/topic/sesion." + sesion.toString(), function (event) {
+                    var evento = JSON.parse(event.body);
+                    console.info(evento);
+                    document.getElementById("titulo").innerHTML = evento.proyecto.nombre;
+                    document.getElementById("torres").innerHTML = "";
+                    document.getElementById("tabla").innerHTML = "";
+                    document.getElementById("logo").src = evento.proyecto.logo;
+                    for (var i = 1; i <= evento.proyecto.torres; i++) {
+                        document.getElementById("torres").innerHTML += "<option value='" + i + "'>Torre " + i + "</option>";
+                    }
+                });
+
+            });
         }
-          
+
     };
 })();
 

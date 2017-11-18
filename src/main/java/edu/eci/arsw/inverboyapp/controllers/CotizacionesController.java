@@ -69,7 +69,7 @@ public class CotizacionesController {
     public ResponseEntity<?> getLastCotizadorByUser(@PathVariable String user) {
         System.out.println(user);
         try {
-            return new ResponseEntity<>(services.getLastCotizadorByUser(user), HttpStatus.ACCEPTED);
+            return new ResponseEntity<>(services.getLastSesionByUser(user), HttpStatus.ACCEPTED);
         } catch (InverboyServicesException ex) {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }

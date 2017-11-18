@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.inverboyapp.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -27,6 +28,12 @@ public class ProyectoApartamentos extends Proyecto {
         this.inmuebles=inmuebles;
     }
 
+    public ProyectoApartamentos(String nombre, String direccion, String tipo, String logo) {
+        super(nombre, direccion, tipo, logo);
+    }
+
+    public ProyectoApartamentos(){
+    }
 
     public ArrayList<Inmueble> getInmuebles() {
         return inmuebles;

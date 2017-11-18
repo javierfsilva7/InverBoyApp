@@ -19,6 +19,7 @@ public class Sesion implements Serializable{
     public Usuario asesor;
     public ArrayList<Cotizacion> cotizaciones;
     public String estado;
+    public Proyecto proyecto;
 
     public Sesion() {
     }
@@ -27,12 +28,13 @@ public class Sesion implements Serializable{
         this.cliente = cliente;
     }
 
-    public Sesion(int id, Usuario cliente, Usuario asesor, ArrayList<Cotizacion> cotizaciones, String estado) {
+    public Sesion(int id, Usuario cliente, Usuario asesor, ArrayList<Cotizacion> cotizaciones, String estado,Proyecto proyecto) {
         this.id = id;
         this.cliente = cliente;
         this.asesor = asesor;
         this.cotizaciones = cotizaciones;
         this.estado = estado;
+        this.proyecto=proyecto;
     }
 
     public int getId() {
@@ -73,6 +75,14 @@ public class Sesion implements Serializable{
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Proyecto getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(Proyecto proyecto) {
+        this.proyecto = proyecto;
     }
     
     
