@@ -20,7 +20,9 @@ public class Sesion implements Serializable{
     public ArrayList<Cotizacion> cotizaciones;
     public String estado;
     public Proyecto proyecto;
-
+    public Inmueble inmuebleSeleccionado;
+    public int torreSeleccionada;
+    
     public Sesion() {
     }
 
@@ -36,6 +38,18 @@ public class Sesion implements Serializable{
         this.estado = estado;
         this.proyecto=proyecto;
     }
+
+    public Sesion(int id, Usuario cliente, Usuario asesor, ArrayList<Cotizacion> cotizaciones, String estado, Proyecto proyecto, Inmueble inmuebleSeleccionado, int torreSeleccionada) {
+        this.id = id;
+        this.cliente = cliente;
+        this.asesor = asesor;
+        this.cotizaciones = cotizaciones;
+        this.estado = estado;
+        this.proyecto = proyecto;
+        this.inmuebleSeleccionado = inmuebleSeleccionado;
+        this.torreSeleccionada = torreSeleccionada;
+    }
+        
 
     public int getId() {
         return id;
@@ -83,6 +97,22 @@ public class Sesion implements Serializable{
 
     public void setProyecto(Proyecto proyecto) {
         this.proyecto = proyecto;
+    }
+
+    public Inmueble getInmuebleSeleccionado() {
+        return inmuebleSeleccionado;
+    }
+
+    public void setInmuebleSeleccionado(Inmueble inmuebleSeleccionado) {
+        this.inmuebleSeleccionado = inmuebleSeleccionado;
+    }
+
+    public int getTorreSeleccionada() {
+        return torreSeleccionada;
+    }
+
+    public void setTorreSeleccionada(int torreSeleccionada) {
+        this.torreSeleccionada = torreSeleccionada;
     }
     
     

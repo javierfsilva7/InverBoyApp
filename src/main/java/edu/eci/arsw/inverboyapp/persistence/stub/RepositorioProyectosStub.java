@@ -117,7 +117,7 @@ public class RepositorioProyectosStub implements RepositorioProyectos {
         proyectosdb = new ConcurrentHashMap<>();
         proyectosdb.put("TierrAlta", new ProyectoApartamentos("TierrAlta", "Carrera 9 este # 38-98", "VIS", "img/ta.png", 10, 2, "img/imp.jpg", inmuebles));
         proyectosdb.put("Monteverde", new ProyectoApartamentos("Monteverde", "Carrera 9 este # 38-98", "VIS", "img/mv.png", 9, 2, "img/imp.jpg", inmuebles));
-        proyectosdb.put("MantaReal", new ProyectoApartamentos("MantaReal", "Carrera 9 este # 38-98", "VIS", "img/mr.png", 9, 2, "img/imp.jpg", inmuebles));
+        proyectosdb.put("MantaReal", new ProyectoApartamentos("MantaReal", "Carrera 9 este # 38-98", "VIS", "img/mr1.png", 9, 2, "img/imp.jpg", inmuebles));
 
     }
 

@@ -28,7 +28,7 @@ public class RepositorioSesionesStub implements RepositorioSesiones {
 
     static {
         sesionesdb = new ConcurrentHashMap<>();
-        sesionesdb.put(1, new Sesion(new Usuario("Javi", "3124448033", "@.com", "cliente")));
+        sesionesdb.put(1, new Sesion(new Usuario("Isabel Castellanos", "3112681076", "@.com", "cliente")));
     }
 
     @Override

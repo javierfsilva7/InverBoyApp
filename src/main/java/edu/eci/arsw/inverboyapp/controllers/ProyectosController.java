@@ -5,8 +5,10 @@
  */
 package edu.eci.arsw.inverboyapp.controllers;
 
+import edu.eci.arsw.inverboyapp.model.Inmueble;
 import edu.eci.arsw.inverboyapp.services.InverboyServicesException;
 import edu.eci.arsw.inverboyapp.services.Servicios;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,8 +61,10 @@ public class ProyectosController {
     }
 
     @RequestMapping(path = "/{proyecto}/inmuebles/{torre}", method = RequestMethod.GET)
-    public ResponseEntity<?> getInmueblesByProyecto(@PathVariable String proyecto, @PathVariable int torre) {
+    public ResponseEntity<?> getInmueblesByTorre(@PathVariable String proyecto, @PathVariable int torre) {
         try {
+            
+            
             return new ResponseEntity<>(services.getInmueblesByTorre(proyecto, torre), HttpStatus.ACCEPTED);
         } catch (InverboyServicesException ex) {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
