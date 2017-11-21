@@ -53,10 +53,10 @@ var app = (function () {
                     controlador.getLastSesionByUser(user, _fun2);
                     $.get("proyecto.html", function (data) {
                         $("#contenedor").html(data);
-                        document.getElementById("header").innerHTML = "<div class=\"col-md-4 encabezado\"><h1 id=\"nameuser\">Usuario: </><h1 id=\"titulo\">Proyecto </h1><img id=\"logo\"/><br></br><select id=\"proyectos\"class =\"select\" onchange=\"app.selectProyect()\"></select><br></br><select id=\"torres\" class =\"select\" onchange=\"app.selectTorre()\"></select></div><div id=\"cotizador\" class=\"col-md-4\"></div> ";
+                        document.getElementById("header").innerHTML = "<div class=\"col-md-4 encabezado\"><h1 id=\"nameuser\">Usuario: </><h1 id=\"titulo\">Proyecto </h1><img id=\"logo\"/><br></br><select id=\"proyectos\"class =\"select\" class= \"form-control\" onchange=\"app.selectProyect()\"></select><br></br><select id=\"torres\" class =\"select\" onchange=\"app.selectTorre()\"></select></div><div id=\"cotizador\" class=\"col-md-4\"></div> ";
                         document.getElementById("nameuser").innerHTML = username.nombre;
 
-                        document.getElementById("cotizador").innerHTML = ("<div><p>Apartamento: </p><input id=\"apto\" disabled type=\"number\" ><p>Valor:</p><input id=\"valor\" type=\"number\" disabled >");
+                        document.getElementById("cotizador").innerHTML = ("<div><p>Apartamento: </p><input id=\"apto\" disabled type=\"number\" class=\"form-control form-control-success\" ><p>Valor:</p><input id=\"valor\" type=\"number\" disabled >");
                         document.getElementById("cotizador").innerHTML += ("<p>Ingresos mensuales: </p><input id=\"ingresos\"onchange=\"app.updateCotizacion()\" type=\"number\">");
                         document.getElementById("cotizador").innerHTML += ("<p>Crédito aproximado: </p><input id=\"credito\" onchange=\"app.updateCotizacion()\" type=\"number\"><p>Subsidio: </p><input id=\"subsidio\"  onchange=\"app.updateCotizacion()\" type=\"number\">");
                         document.getElementById("cotizador").innerHTML += ("<p>Cesantias: </p><input  id=\"cesantias\" onchange=\"app.updateCotizacion()\" type=\"number\">");
