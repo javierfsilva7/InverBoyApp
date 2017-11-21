@@ -62,13 +62,10 @@ public class SesionController {
         try {
             Sesion s = new Sesion(sesion.getCliente());
             services.setSesion(s);
-            //LOG.log(Level.INFO, "Getting letter from client {0}:{1}", new Object[]{cotizacion.getId(), cotizacion.getCliente(), cotizacion.getInmueble()});
-            //msmt.convertAndSend("/topic/wupdate." + gameid.toString(), tmp);
-
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (InverboyServicesException ex) {
             Logger.getLogger(SesionController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("No existe el juego", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("No existe la sesion", HttpStatus.BAD_REQUEST);
         }
     }
     
@@ -82,13 +79,9 @@ public class SesionController {
     }
     
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> setProyectoBySesion(@RequestBody Sesion sesion) {
+    public ResponseEntity<?> putSesion(@RequestBody Sesion sesion) {
         try {
-            System.out.println("PUT AAA SESION");
             Sesion pr = services.updateSesion(sesion);
-            //ProyectoApartamentos apto = (ProyectoApartamentos) pr.getProyecto();
-            //String res = '{"id":'+pr.getId()+', "username":'+pr.getCliente().getNombre()+',"proyectname":'+pr.getProyecto().getNombre()+', "logo": '+pr.getProyecto().getLogo()+', "torres":'+apto.getTorres()+'}';
-            System.out.println(pr.getId()+" "+pr.getProyecto());
             msmt.convertAndSend("/topic/sesion." + sesion.getId(), pr);
            
             return new ResponseEntity<>(HttpStatus.CREATED);

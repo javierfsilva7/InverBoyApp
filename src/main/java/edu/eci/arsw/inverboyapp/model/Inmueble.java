@@ -5,11 +5,13 @@
  */
 package edu.eci.arsw.inverboyapp.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author javierfsilva7
  */
-public class Inmueble {
+public class Inmueble implements Serializable{
     public String seccion;
     public String numero;
     public String tipo;
@@ -22,6 +24,10 @@ public class Inmueble {
         this.valor=valor;
         
     }
+
+    public Inmueble() {
+    }
+    
 
     public String getSeccion() {
         return seccion;

@@ -17,7 +17,7 @@ public class Sesion implements Serializable{
     public int id;
     public Usuario cliente;
     public Usuario asesor;
-    public ArrayList<Cotizacion> cotizaciones;
+    public Cotizacion cotizacion;
     public String estado;
     public Proyecto proyecto;
     public Inmueble inmuebleSeleccionado;
@@ -30,20 +30,20 @@ public class Sesion implements Serializable{
         this.cliente = cliente;
     }
 
-    public Sesion(int id, Usuario cliente, Usuario asesor, ArrayList<Cotizacion> cotizaciones, String estado,Proyecto proyecto) {
+    public Sesion(int id, Usuario cliente, Usuario asesor, Cotizacion cotizacion, String estado,Proyecto proyecto) {
         this.id = id;
         this.cliente = cliente;
         this.asesor = asesor;
-        this.cotizaciones = cotizaciones;
+        this.cotizacion = cotizacion;
         this.estado = estado;
         this.proyecto=proyecto;
     }
 
-    public Sesion(int id, Usuario cliente, Usuario asesor, ArrayList<Cotizacion> cotizaciones, String estado, Proyecto proyecto, Inmueble inmuebleSeleccionado, int torreSeleccionada) {
+    public Sesion(int id, Usuario cliente, Usuario asesor, Cotizacion cotizacion, String estado, Proyecto proyecto, Inmueble inmuebleSeleccionado, int torreSeleccionada) {
         this.id = id;
         this.cliente = cliente;
         this.asesor = asesor;
-        this.cotizaciones = cotizaciones;
+        this.cotizacion = cotizacion;
         this.estado = estado;
         this.proyecto = proyecto;
         this.inmuebleSeleccionado = inmuebleSeleccionado;
@@ -75,14 +75,15 @@ public class Sesion implements Serializable{
         this.asesor = asesor;
     }
 
-    public ArrayList<Cotizacion> getCotizaciones() {
-        return cotizaciones;
+    public Cotizacion getCotizacion() {
+        return cotizacion;
     }
 
-    public void setCotizaciones(ArrayList<Cotizacion> cotizaciones) {
-        this.cotizaciones = cotizaciones;
+    public void setCotizacion(Cotizacion cotizacion) {
+        this.cotizacion = cotizacion;
     }
 
+   
     public String getEstado() {
         return estado;
     }

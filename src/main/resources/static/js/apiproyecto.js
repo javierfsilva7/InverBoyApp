@@ -7,11 +7,6 @@
 var apiproyecto = (function () {
 
     var proyectos = [];
-    var proyectoSeleccionado;
-    var inmuebles = [];
-    var torreSeleccionada;
-    var apartamentoSel;
-    var sesionSel;
 
     var _fun = function (list) {
         for (var i = 0; i < list.length; i++) {
@@ -26,7 +21,6 @@ var apiproyecto = (function () {
         loadProyectos: function () {
             controlador.getAllProyectos(_fun);
             setTimeout(function () {
-                console.info(proyectos);
                 for (var i = 0; i < proyectos.length; i++) {
                     document.getElementById("proyectos").innerHTML += "<option value='" + proyectos[i].nombre + "'>Proyecto " + proyectos[i].nombre + "</option>";
                 }

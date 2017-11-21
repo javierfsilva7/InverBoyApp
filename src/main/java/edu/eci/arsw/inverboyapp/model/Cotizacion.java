@@ -18,6 +18,15 @@ public class Cotizacion implements Serializable{
     public Inmueble inmueble;
     public int id;
     public Usuario asesor;
+    public String proyecto;
+    public int ingresos;
+    public int credito;
+    public int subsidio;
+    public int cesantias;
+    public int ahorro;
+    public int recpropios;
+    public int numcuotas;
+    public int cuotas;
     
     public  Cotizacion(){
     }
@@ -31,6 +40,21 @@ public class Cotizacion implements Serializable{
         this.inmueble = inmueble;
         this.id = id;
         this.asesor = asesor;
+    }
+
+    public Cotizacion(Usuario cliente, Inmueble inmueble, Usuario asesor, String proyecto, int ingresos, int credito, int subsidio, int cesantias, int ahorro, int recpropios, int numcuotas, int cuotas) {
+        this.cliente = cliente;
+        this.inmueble = inmueble;
+        this.asesor = asesor;
+        this.proyecto = proyecto;
+        this.ingresos = ingresos;
+        this.credito = credito;
+        this.subsidio = subsidio;
+        this.cesantias = cesantias;
+        this.ahorro = ahorro;
+        this.recpropios = recpropios;
+        this.numcuotas = numcuotas;
+        this.cuotas = cuotas;
     }
     
     
@@ -65,6 +89,78 @@ public class Cotizacion implements Serializable{
 
     public void setAsesor(Usuario asesor) {
         this.asesor = asesor;
+    }
+
+    public String getProyecto() {
+        return proyecto;
+    }
+
+    public void setProyecto(String proyecto) {
+        this.proyecto = proyecto;
+    }
+
+    public int getIngresos() {
+        return ingresos;
+    }
+
+    public void setIngresos(int ingresos) {
+        this.ingresos = ingresos;
+    }
+
+    public int getCredito() {
+        return credito;
+    }
+
+    public void setCredito(int credito) {
+        this.credito = credito;
+    }
+
+    public int getSubsidio() {
+        return subsidio;
+    }
+
+    public void setSubsidio(int subsidio) {
+        this.subsidio = subsidio;
+    }
+
+    public int getCesantias() {
+        return cesantias;
+    }
+
+    public void setCesantias(int cesantias) {
+        this.cesantias = cesantias;
+    }
+
+    public int getAhorro() {
+        return ahorro;
+    }
+
+    public void setAhorro(int ahorro) {
+        this.ahorro = ahorro;
+    }
+
+    public int getRecpropios() {
+        return recpropios;
+    }
+
+    public void setRecpropios(int recpropios) {
+        this.recpropios = recpropios;
+    }
+
+    public int getNumcuotas() {
+        return numcuotas;
+    }
+
+    public void setNumcuotas(int numcuotas) {
+        this.numcuotas = numcuotas;
+    }
+
+    public int getCuotas() {
+        return cuotas;
+    }
+
+    public void setCuotas(int cuotas) {
+        this.cuotas = cuotas;
     }
     
     
