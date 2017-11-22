@@ -56,14 +56,14 @@ var app = (function () {
                         document.getElementById("header").innerHTML = "<div class=\"col-md-4 encabezado\"><h1 id=\"nameuser\">Usuario: </><h1 id=\"titulo\">Proyecto </h1><img id=\"logo\"/><br></br><select id=\"proyectos\"class =\"select\" class= \"form-control\" onchange=\"app.selectProyect()\"></select><br></br><select id=\"torres\" class =\"select\" onchange=\"app.selectTorre()\"></select></div><div id=\"cotizador\" class=\"col-md-4\"></div> ";
                         document.getElementById("nameuser").innerHTML = username.nombre;
 
-                        document.getElementById("cotizador").innerHTML = ("<div><p>Apartamento: </p><input id=\"apto\" disabled type=\"number\" class=\"form-control form-control-success\" ><p>Valor:</p><input id=\"valor\" type=\"number\" disabled >");
-                        document.getElementById("cotizador").innerHTML += ("<p>Ingresos mensuales: </p><input id=\"ingresos\"onchange=\"app.updateCotizacion()\" type=\"number\">");
-                        document.getElementById("cotizador").innerHTML += ("<p>Crédito aproximado: </p><input id=\"credito\" onchange=\"app.updateCotizacion()\" type=\"number\"><p>Subsidio: </p><input id=\"subsidio\"  onchange=\"app.updateCotizacion()\" type=\"number\">");
-                        document.getElementById("cotizador").innerHTML += ("<p>Cesantias: </p><input  id=\"cesantias\" onchange=\"app.updateCotizacion()\" type=\"number\">");
-                        document.getElementById("cotizador").innerHTML += ("<p>Ahorro programado: </p><input  id=\"ahorropr\" onchange=\"app.updateCotizacion()\" type=\"number\">");
-                        document.getElementById("cotizador").innerHTML += ("<p>Recursos propios: </p><input id=\"recpropios\"  onchange=\"app.updateCotizacion()\" type=\"number\">");
-                        document.getElementById("cotizador").innerHTML += ("<p>Numero de cuotas: </p><input type=\"number\" id=\"numcuotas\" onchange=\"app.updateCotizacion()\" ><p>Cuotas mensuales de: </p><input type=\"number\" id=\"cuotas\" onchange=\"app.updateCotizacion()\" ></div>");
-
+                        document.getElementById("cotizador").innerHTML = ("<div><p>Apartamento: </p><input id=\"apto\" disabled type=\"number\" class=\"form-control\" ><p>Valor:</p><input id=\"valor\" type=\"number\" disabled class=\"form-control\">");
+                        document.getElementById("cotizador").innerHTML += ("<p>Ingresos mensuales: </p><input id=\"ingresos\"onchange=\"app.updateCotizacion()\" type=\"number\" class=\"form-control\">");
+                        document.getElementById("cotizador").innerHTML += ("<p>Crédito aproximado: </p><input id=\"credito\" class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\"><p>Subsidio: </p><input id=\"subsidio\"  class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
+                        document.getElementById("cotizador").innerHTML += ("<p>Cesantias: </p><input  id=\"cesantias\" class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
+                        document.getElementById("cotizador").innerHTML += ("<p>Ahorro programado: </p><input  id=\"ahorropr\" class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
+                        document.getElementById("cotizador").innerHTML += ("<p>Recursos propios: </p><input id=\"recpropios\"  class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
+                        document.getElementById("cotizador").innerHTML += ("<p>Numero de cuotas: </p><input type=\"number\" id=\"numcuotas\" class=\"form-control\" onchange=\"app.updateCotizacion()\" ><p>Cuotas mensuales de: </p><input type=\"number\" id=\"cuotas\" class=\"form-control\" onchange=\"app.updateCotizacion()\" ></div>");
+                        
                         apiproyecto.loadProyectos();
                         setTimeout(function () {
                             controlador.wsconnect(sesionActual.id);
@@ -72,13 +72,16 @@ var app = (function () {
                 } else {
                     $.get("cotizador.html", function (data) {
                         $("#contenedor").html(data);
-                        document.getElementById("container").innerHTML = "<div class=\"col-md-4\" id=\"tabla\"></div>";
-                        document.getElementById("tabla").innerHTML = "<table class=\"table table-bordered\"><tbody></tbody></table>";
+                        document.getElementById("container").innerHTML = "<h1>LISTA DE SESIONES</h1> <br></br>";
+                        document.getElementById("container").innerHTML += "<div class=\"col-md-4\" id=\"tabla\"></div>";
+                        document.getElementById("tabla").innerHTML = "<table class=\"table table-hover\"><tbody></tbody></table>";
+                        $("table tbody").append("<td><h4><strong>Numero de sesion</strong></h4></td><td><h4><strong>Cliente</strong></h4></td><td><h4><strong>Estado</strong></h4></td><td><h4><strong>Suscribirse</strong></h4></td>");
+                               
                         controlador.getAllSesiones(_fun4);
                         setTimeout(function () {
                             for (var i = 0; i < sesiones.length; i++) {
                                 $("table tbody").append("<tr>");
-                                $("table tbody").append("<td><button onclick=\"app.subscribe('" + sesiones[i].id + "')\">Suscribirse</button></td><td><h4>" + sesiones[i].cliente.nombre + "</h4></td><td><h4> Estado: " + sesiones[i].estado + "</h4></td>");
+                                $("table tbody").append("<td><h4>" + sesiones[i].id + "</h4></td><td><h4>" + sesiones[i].cliente.nombre + "</h4></td><td><h4> " + sesiones[i].estado + "</h4></td><td><button class=\"btn btn-info\" onclick=\"app.subscribe('" + sesiones[i].id + "')\">Suscribirse</button></td>");
                                 $("table tbody").append("</tr>");
                             }
                         }, 200);
@@ -105,13 +108,13 @@ var app = (function () {
             document.getElementById("header").innerHTML = "<div class=\"col-md-4 encabezado\"><h1 id=\"nameuser\">Usuario: </><h1 id=\"titulo\">Proyecto </h1><img id=\"logo\"/><br></br><select id=\"proyectos\"class =\"select\" onchange=\"app.selectProyect()\"></select><br></br><select id=\"torres\" class =\"select\" onchange=\"app.selectTorre()\"></select></div><div id=\"cotizador\" class=\"col-md-4\"></div> ";
             document.getElementById("container").innerHTML = "<div class=\"col-md-2\" id=\"tabla\"></div>";
 
-            document.getElementById("cotizador").innerHTML = ("<div><p>Apartamento: </p><input id=\"apto\" disabled type=\"number\" ><p>Valor:</p><input id=\"valor\" type=\"number\" disabled >");
-            document.getElementById("cotizador").innerHTML += ("<p>Ingresos mensuales: </p><input id=\"ingresos\"onchange=\"app.updateCotizacion()\" type=\"number\">");
-            document.getElementById("cotizador").innerHTML += ("<p>Crédito aproximado: </p><input id=\"credito\" onchange=\"app.updateCotizacion()\" type=\"number\"><p>Subsidio: </p><input id=\"subsidio\"  onchange=\"app.updateCotizacion()\" type=\"number\">");
-            document.getElementById("cotizador").innerHTML += ("<p>Cesantias: </p><input  id=\"cesantias\" onchange=\"app.updateCotizacion()\" type=\"number\">");
-            document.getElementById("cotizador").innerHTML += ("<p>Ahorro programado: </p><input  id=\"ahorropr\" onchange=\"app.updateCotizacion()\" type=\"number\">");
-            document.getElementById("cotizador").innerHTML += ("<p>Recursos propios: </p><input id=\"recpropios\"  onchange=\"app.updateCotizacion()\" type=\"number\">");
-            document.getElementById("cotizador").innerHTML += ("<p>Numero de cuotas: </p><input type=\"number\" id=\"numcuotas\" onchange=\"app.updateCotizacion()\" ><p>Cuotas mensuales de: </p><input type=\"number\" id=\"cuotas\" onchange=\"app.updateCotizacion()\" ></div>");
+            document.getElementById("cotizador").innerHTML = ("<div><p>Apartamento: </p><input id=\"apto\" disabled class=\"form-control\" type=\"number\" ><p>Valor:</p><input id=\"valor\" class=\"form-control\" type=\"number\" disabled >");
+            document.getElementById("cotizador").innerHTML += ("<p>Ingresos mensuales: </p><input id=\"ingresos\" class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
+            document.getElementById("cotizador").innerHTML += ("<p>Crédito aproximado: </p><input id=\"credito\" class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\"><p>Subsidio: </p><input id=\"subsidio\"  class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
+            document.getElementById("cotizador").innerHTML += ("<p>Cesantias: </p><input  id=\"cesantias\" class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
+            document.getElementById("cotizador").innerHTML += ("<p>Ahorro programado: </p><input  id=\"ahorropr\" class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
+            document.getElementById("cotizador").innerHTML += ("<p>Recursos propios: </p><input id=\"recpropios\"  class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
+            document.getElementById("cotizador").innerHTML += ("<p>Numero de cuotas: </p><input type=\"number\" id=\"numcuotas\" class=\"form-control\" onchange=\"app.updateCotizacion()\" ><p>Cuotas mensuales de: </p><input type=\"number\" id=\"cuotas\" class=\"form-control\" onchange=\"app.updateCotizacion()\" ></div>");
 
             apiproyecto.loadProyectos();
             setTimeout(function () {

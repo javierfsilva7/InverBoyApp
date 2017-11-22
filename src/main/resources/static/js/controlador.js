@@ -119,7 +119,7 @@ controlador = (function () {
                     }
 
                     if (evento.torreSeleccionada !== null) {
-                        var markup = ("<table class=\"table table-bordered\"><tbody></tbody></table>");
+                        var markup = ("<table class=\"table table-hover\"><tbody></tbody></table>");
                         document.getElementById("tabla").innerHTML = markup;
                         controlador.getInmuebleByTorre(evento.proyecto.nombre, evento.torreSeleccionada, _fun5);
                         setTimeout(function () {
