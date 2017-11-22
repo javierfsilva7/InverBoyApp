@@ -14,9 +14,9 @@ Ahora los asesores comerciales y los clientes estarán conectados en tiempo real
 **Indicaciones básicas de uso de la aplicación:** 
 Por el momento solo cuentan dos usuarios disponibles, un asesor registrado y un cliente registrado.
 
-**-Asesor:** 3124448033 
+**- Asesor:** 3124448033 
 
-**-Cliente:** 3112681076
+**- Cliente:** 3112681076
 
 Los usuarios de identifican por su número de celular, cuando estos inician sesion dependiendo de su rol pueden pasar dos cosas:
 - Como usuario ingresará a la cotización directamente.
