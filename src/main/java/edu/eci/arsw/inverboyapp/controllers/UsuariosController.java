@@ -5,6 +5,7 @@
  */
 package edu.eci.arsw.inverboyapp.controllers;
 
+import edu.eci.arsw.inverboyapp.model.Usuario;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioUsuarios;
 import edu.eci.arsw.inverboyapp.services.InverboyServicesException;
 import edu.eci.arsw.inverboyapp.services.Servicios;
@@ -45,6 +46,20 @@ public class UsuariosController {
         System.out.println(id);
         try {
             return new ResponseEntity<>(services.getUserById(id), HttpStatus.ACCEPTED);
+        } catch (InverboyServicesException ex) {
+            return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> putUser(@PathVariable Usuario usr) {
+        try {
+            
+            System.out.println(usr.getNombre());
+            
+            Usuario u= new Usuario(usr.getNombre(), usr.getCelular(), usr.getCorreo(), usr.getRol());
+            services.addCliente(u);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
         } catch (InverboyServicesException ex) {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }

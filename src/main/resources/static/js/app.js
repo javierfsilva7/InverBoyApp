@@ -63,7 +63,7 @@ var app = (function () {
                         document.getElementById("cotizador").innerHTML += ("<p>Ahorro programado: </p><input  id=\"ahorropr\" class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
                         document.getElementById("cotizador").innerHTML += ("<p>Recursos propios: </p><input id=\"recpropios\"  class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
                         document.getElementById("cotizador").innerHTML += ("<p>Numero de cuotas: </p><input type=\"number\" id=\"numcuotas\" class=\"form-control\" onchange=\"app.updateCotizacion()\" ><p>Cuotas mensuales de: </p><input type=\"number\" id=\"cuotas\" class=\"form-control\" onchange=\"app.updateCotizacion()\" ></div>");
-                        
+
                         apiproyecto.loadProyectos();
                         setTimeout(function () {
                             controlador.wsconnect(sesionActual.id);
@@ -76,7 +76,7 @@ var app = (function () {
                         document.getElementById("container").innerHTML += "<div class=\"col-md-4\" id=\"tabla\"></div>";
                         document.getElementById("tabla").innerHTML = "<table class=\"table table-hover\"><tbody></tbody></table>";
                         $("table tbody").append("<td><h4><strong>Numero de sesion</strong></h4></td><td><h4><strong>Cliente</strong></h4></td><td><h4><strong>Estado</strong></h4></td><td><h4><strong>Suscribirse</strong></h4></td>");
-                               
+
                         controlador.getAllSesiones(_fun4);
                         setTimeout(function () {
                             for (var i = 0; i < sesiones.length; i++) {
@@ -172,6 +172,30 @@ var app = (function () {
                     url: "/sesiones",
                     type: "PUT",
                     data: JSON.stringify(sesion),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8"
+                });
+            }, 200);
+        },
+        singUp: function () {
+
+            
+            document.getElementById("contenedor").innerHTML = ("<div id=\"contenedor\"><div class=\"row\"><div class=\"col-md-2\" id=\"contenedorlog\"><img src=\"/img/logo-png.png\" class=\"img-responsive\" alt=\"Conxole Admin\"/><input placeholder=\"Nombre\"id=\"nombre\" type=\"text\" class=\"form-control form-control-success\"><input  placeholder=\"Celular\" id=\"celular\" type=\"text\" class=\" form-control form-control-success\"><input  placeholder=\"Correo\" id=\"correo\" type=\"text\" class=\" form-control form-control-success\"> <br></br><button id=\"singup\" class=\"btn btn-success btn-lg btn-block\" onclick=\"app.registrarse()\"> Registrarse </button><a href=\"index.html\"> Ingresar</a> </div></div></div>");
+
+       },
+        registrarse: function () {
+            console.info("entro a la funcion");
+            var nombre = document.getElementById("nombre").value;
+            var celular = document.getElementById("celular").value;
+            var correo = document.getElementById("correo").value;
+
+            var cliente = {"nombre": nombre, "celular": celular, "correo": correo, "rol": "cliente"};
+            console.info(cliente);
+            setTimeout(function () {
+                $.ajax({
+                    url: "/usuarios",
+                    type: "POST",
+                    data: JSON.stringify(cliente),
                     dataType: "json",
                     contentType: "application/json; charset=utf-8"
                 });

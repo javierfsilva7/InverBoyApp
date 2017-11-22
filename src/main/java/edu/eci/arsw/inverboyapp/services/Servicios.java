@@ -112,6 +112,16 @@ public class Servicios {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     }
+    
+    public void addCliente(Usuario cliente) throws InverboyServicesException {
+        try {
+            usuariosRepositorio.setUser(cliente);
+            
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+        }
+        
+    }
 
     public Cotizacion getLastCotizadorByUser(String user) throws InverboyServicesException {
         try {

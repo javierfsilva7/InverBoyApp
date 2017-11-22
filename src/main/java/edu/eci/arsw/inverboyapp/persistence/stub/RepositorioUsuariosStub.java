@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Service;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioUsuarios;
 import edu.eci.arsw.inverboyapp.persistence.PersistenceException;
+import org.springframework.messaging.simp.user.UserSessionRegistry;
 
 /**
  *
@@ -52,7 +53,16 @@ public class RepositorioUsuariosStub implements RepositorioUsuarios{
         else{
             return usersdb.get(id).getRol();
         }
+        
     }
     
+    @Override
+    public void setUser(Usuario cliente) throws PersistenceException{
+        usersdb.put(cliente.celular, cliente);
+        
+    }
+    
+    
+
     
 }
