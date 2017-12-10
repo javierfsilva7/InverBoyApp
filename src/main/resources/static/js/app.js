@@ -15,7 +15,7 @@ var app = (function () {
     var inmueble;
     var apartamentoSel;
     var _fun = function (user) {
-        username = {"nombre": user.nombre, "celular": user.celular, "correo": user.correo, "rol": user.rol};
+        username = {"_id": user._id, "nombre": user.nombre, "correo": user.correo, "rol": user.rol};
     };
     var _fun2 = function (sesion) {
         sesionActual = {"id": sesion.id, "cliente": sesion.cliente, "asesor": sesion.asesor, "cotizaciones": sesion.cotizaciones, "estado": sesion.estado, "proyecto": sesion.proyecto, "inmuebleSeleccionado": sesion.inmuebleSeleccionado, "torreSeleccionada": sesion.torreSeleccionada};
@@ -42,7 +42,7 @@ var app = (function () {
             controlador.getUsuarioByName(user, _fun);
             setTimeout(function () {
                 if (username.rol === 'cliente') {
-                    var sesion = {"id": 0, "cliente": {"nombre": username.nombre, "celular": username.celular, "correo": username.correo, "rol": username.rol}, "asesor": null, "cotizacion": {}, "estado": null};
+                    var sesion = {"id": 0, "cliente": {"_id": username._id, "nombre": username.nombre, "correo": username.correo, "rol": username.rol}, "asesor": null, "cotizacion": {}, "estado": null};
                     $.ajax({
                         url: "/sesiones",
                         type: "POST",
@@ -177,19 +177,17 @@ var app = (function () {
                 });
             }, 200);
         },
-        singUp: function () {
-
-            
-            document.getElementById("contenedor").innerHTML = ("<div id=\"contenedor\"><div class=\"row\"><div class=\"col-md-2\" id=\"contenedorlog\"><img src=\"/img/logo-png.png\" class=\"img-responsive\" alt=\"Conxole Admin\"/><input placeholder=\"Nombre\"id=\"nombre\" type=\"text\" class=\"form-control form-control-success\"><input  placeholder=\"Celular\" id=\"celular\" type=\"text\" class=\" form-control form-control-success\"><input  placeholder=\"Correo\" id=\"correo\" type=\"text\" class=\" form-control form-control-success\"> <br></br><button id=\"singup\" class=\"btn btn-success btn-lg btn-block\" onclick=\"app.registrarse()\"> Registrarse </button><a href=\"index.html\"> Ingresar</a> </div></div></div>");
+        singUp: function () {            
+            document.getElementById("contenedor").innerHTML = ("<div id=\"contenedor\"><div class=\"row\"><div class=\"col-md-2\" id=\"contenedorlog\"><img src=\"/img/logo-png.png\" class=\"img-responsive\" alt=\"Conxole Admin\"/><input placeholder=\"Nombre\" id=\"nombre\" type=\"text\" class=\"form-control form-control-success\"><input  placeholder=\"Celular\" id=\"id\" type=\"text\" class=\" form-control form-control-success\"><input placeholder=\"Correo\" id=\"correo\" type=\"text\" class=\" form-control form-control-success\"> <br></br><button id=\"singup\" class=\"btn btn-success btn-lg btn-block\" onclick=\"app.registrarse()\"> Registrarse </button><a href=\"index.html\"> Ingresar</a> </div></div></div>");
 
        },
         registrarse: function () {
             console.info("entro a la funcion");
             var nombre = document.getElementById("nombre").value;
-            var celular = document.getElementById("celular").value;
+            var _id = document.getElementById("id").value;
             var correo = document.getElementById("correo").value;
 
-            var cliente = {"nombre": nombre, "celular": celular, "correo": correo, "rol": "cliente"};
+            var cliente = {"_id": _id, "nombre": nombre, "correo": correo, "rol": "cliente"};
             console.info(cliente);
             setTimeout(function () {
                 $.ajax({

@@ -6,17 +6,19 @@
 package edu.eci.arsw.inverboyapp.persistence;
 
 import edu.eci.arsw.inverboyapp.model.Usuario;
-import java.util.Set;
+//import java.util.Set;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  *
  * @author javierfsilva7
  */
-public interface RepositorioUsuarios {
+public interface RepositorioUsuarios extends MongoRepository<Usuario, String>{
     
-public Usuario getUserByID(String id) throws PersistenceException;  
+public Usuario findBy_id(String _id);  
+/*
 public Set<Usuario> getAllUsers() throws PersistenceException;
 public String getRolById(String id) throws PersistenceException;
 public void setUser(Usuario cliente) throws PersistenceException;
-
+*/
 }

@@ -5,15 +5,19 @@
  */
 package edu.eci.arsw.inverboyapp.controllers;
 
+import edu.eci.arsw.inverboyapp.model.Sesion;
 import edu.eci.arsw.inverboyapp.model.Usuario;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioUsuarios;
 import edu.eci.arsw.inverboyapp.services.InverboyServicesException;
 import edu.eci.arsw.inverboyapp.services.Servicios;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +36,7 @@ public class UsuariosController {
     @Autowired
     SimpMessagingTemplate msmt;
 
+    
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> getAllUsers() {
         try {
@@ -44,24 +49,18 @@ public class UsuariosController {
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getUserById(@PathVariable String id) {
         System.out.println(id);
-        try {
-            return new ResponseEntity<>(services.getUserById(id), HttpStatus.ACCEPTED);
-        } catch (InverboyServicesException ex) {
-            return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>(services.getUserById(id), HttpStatus.ACCEPTED);
     }
     
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> putUser(@PathVariable Usuario usr) {
+    public ResponseEntity<?> setUsuario(@RequestBody Usuario usuario) {
         try {
-            
-            System.out.println(usr.getNombre());
-            
-            Usuario u= new Usuario(usr.getNombre(), usr.getCelular(), usr.getCorreo(), usr.getRol());
-            services.addCliente(u);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+            Usuario s = new Usuario(usuario.getId(), usuario.getNombre(), usuario.getCorreo(),usuario.getRol());
+            services.addCliente(usuario);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (InverboyServicesException ex) {
-            return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
+            Logger.getLogger(SesionController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("No existe la sesion", HttpStatus.BAD_REQUEST);
         }
     }
 

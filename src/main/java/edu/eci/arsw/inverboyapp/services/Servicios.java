@@ -5,6 +5,8 @@
  */
 package edu.eci.arsw.inverboyapp.services;
 
+import com.mongodb.DBObject;
+import com.mongodb.util.JSON;
 import edu.eci.arsw.inverboyapp.model.Cotizacion;
 import edu.eci.arsw.inverboyapp.model.Inmueble;
 import edu.eci.arsw.inverboyapp.model.Proyecto;
@@ -16,6 +18,7 @@ import edu.eci.arsw.inverboyapp.persistence.RepositorioProyectos;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioSesiones;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioUsuarios;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,20 +42,13 @@ public class Servicios {
     @Autowired
     RepositorioSesiones sesiones;
 
-    public Usuario getUserById(String id) throws InverboyServicesException {
-        try {
-            return usuariosRepositorio.getUserByID(id);
-        } catch (PersistenceException ex) {
-            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
-        }
+    public Usuario getUserById(String id) {
+        return usuariosRepositorio.findBy_id(id);
+
     }
 
-    public Set<Usuario> getAllUsers() throws InverboyServicesException {
-        try {
-            return usuariosRepositorio.getAllUsers();
-        } catch (PersistenceException ex) {
-            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
-        }
+    public List<Usuario> getAllUsers() throws InverboyServicesException {
+        return usuariosRepositorio.findAll();
     }
 
     public Set<Cotizacion> getAllCotizadores() throws InverboyServicesException {
@@ -112,15 +108,9 @@ public class Servicios {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     }
-    
+
     public void addCliente(Usuario cliente) throws InverboyServicesException {
-        try {
-            usuariosRepositorio.setUser(cliente);
-            
-        } catch (PersistenceException ex) {
-            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
-        }
-        
+        usuariosRepositorio.save(cliente);
     }
 
     public Cotizacion getLastCotizadorByUser(String user) throws InverboyServicesException {
@@ -131,29 +121,24 @@ public class Servicios {
         }
     }
 
-    public Set<Sesion> getAllSesiones() throws InverboyServicesException {
-        try {
-            return sesiones.getAllSesiones();
-        } catch (PersistenceException ex) {
-            throw new InverboyServicesException("Error loading Sesion Data:" + ex.getLocalizedMessage(), ex);
-        }
+    public List<Sesion> getAllSesiones() throws InverboyServicesException {
+        return sesiones.findAll();
     }
 
     public Sesion getSesionById(int id) throws InverboyServicesException {
         try {
-            return sesiones.getSesionById(id);
+            return sesiones.findByid(id);
         } catch (PersistenceException ex) {
             throw new InverboyServicesException("Error loading Sesion Data:" + ex.getLocalizedMessage(), ex);
         }
     }
 
     public void setSesion(Sesion sesion) throws InverboyServicesException {
-        try {
-            sesiones.setSesion(sesion);
-        } catch (PersistenceException ex) {
-            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
-        }
+        sesion.setId(getAllSesiones().size()+1);
+        sesiones.save(sesion);
     }
+
+    /*
     public Sesion updateSesion(Sesion sesion) throws InverboyServicesException {
         try {
             return sesiones.updateSesion(sesion);
@@ -161,9 +146,11 @@ public class Servicios {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     }
+     */
     public Sesion getLastSesionByUser(String user) throws InverboyServicesException {
         try {
-            return sesiones.getLastSesionByUser(user);
+            List<Sesion> ss = sesiones.findBycliente(usuariosRepositorio.findBy_id(user));
+            return ss.get(ss.size() - 1);
         } catch (PersistenceException ex) {
             throw new InverboyServicesException("Error loading Cotizador Data:" + ex.getLocalizedMessage(), ex);
         }

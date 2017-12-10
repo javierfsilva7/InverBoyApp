@@ -7,13 +7,17 @@ package edu.eci.arsw.inverboyapp.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  *
  * @author javierfsilva7
  */
+@Document(collection = "sesiones")
 public class Sesion implements Serializable{
     
+    @Id
     public int id;
     public Usuario cliente;
     public Usuario asesor;

@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author javierfsilva7
- */
-@Service
+ 
+
 public class RepositorioSesionesStub implements RepositorioSesiones {
 
     private static ConcurrentHashMap<Integer, Sesion> sesionesdb;
@@ -57,7 +57,7 @@ public class RepositorioSesionesStub implements RepositorioSesiones {
         Iterator it = sesionesdb.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry e = (Map.Entry) it.next();
-            if (sesionesdb.get(e.getKey()).getCliente().getCelular().equals(user)) {
+            if (sesionesdb.get(e.getKey()).getCliente().getId().equals(user)) {
                 if (id < sesionesdb.get(e.getKey()).getId()) {
                     id = sesionesdb.get(e.getKey()).getId();
                 }
@@ -82,3 +82,4 @@ public class RepositorioSesionesStub implements RepositorioSesiones {
     }
 
 }
+*/

@@ -6,42 +6,45 @@
 package edu.eci.arsw.inverboyapp.model;
 
 import java.io.Serializable;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  *
  * @author javierfsilva7
  */
-public class Usuario implements Serializable{
-    
-    public String nombre; 
-    public String celular;
+@Document(collection = "usuarios")
+public class Usuario implements Serializable {
+
+    @Id
+    public String _id;
+    public String nombre;
     public String correo;
     public String rol;
-    
-    public Usuario(){
+
+    public Usuario() {
     }
 
-    public Usuario(String nombre, String celular, String correo, String rol) {
+    public Usuario(String _id, String nombre, String correo, String rol) {
+        this._id = _id;
         this.nombre = nombre;
-        this.celular = celular;
         this.correo = correo;
-        this.rol=rol;
+        this.rol = rol;
+    }
+    public String getId() {
+        return _id;
     }
 
+    public void setId(String _id) {
+        this._id = _id;
+    }
+    
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
     }
 
     public String getCorreo() {
@@ -51,10 +54,10 @@ public class Usuario implements Serializable{
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    
-    
+
     public String getRol() {
         return rol;
     }
-    
+
+
 }

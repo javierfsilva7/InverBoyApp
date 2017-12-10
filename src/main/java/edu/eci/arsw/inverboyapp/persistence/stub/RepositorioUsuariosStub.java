@@ -13,13 +13,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Service;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioUsuarios;
 import edu.eci.arsw.inverboyapp.persistence.PersistenceException;
+import java.util.List;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.messaging.simp.user.UserSessionRegistry;
 
 /**
  *
  * @author javierfsilva7
- */
-@Service
+ *
+
 public class RepositorioUsuariosStub implements RepositorioUsuarios{
     
     private static Map<String, Usuario> usersdb;
@@ -58,11 +63,10 @@ public class RepositorioUsuariosStub implements RepositorioUsuarios{
     
     @Override
     public void setUser(Usuario cliente) throws PersistenceException{
-        usersdb.put(cliente.celular, cliente);
-        
+        System.out.println(cliente);
+        usersdb.put(cliente.celular, cliente);        
     }
-    
+    }
+    */
     
 
-    
-}

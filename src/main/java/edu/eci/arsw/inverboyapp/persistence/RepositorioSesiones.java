@@ -7,18 +7,20 @@ package edu.eci.arsw.inverboyapp.persistence;
 
 import edu.eci.arsw.inverboyapp.model.Proyecto;
 import edu.eci.arsw.inverboyapp.model.Sesion;
+import edu.eci.arsw.inverboyapp.model.Usuario;
+import java.util.List;
 import java.util.Set;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  *
  * @author javierfsilva7
  */
-public interface RepositorioSesiones {   
+public interface RepositorioSesiones extends MongoRepository<Sesion, Integer>{   
 
-    public Set<Sesion> getAllSesiones() throws PersistenceException;    
-    public Sesion getSesionById(int id) throws PersistenceException;
-    public void setSesion(Sesion sesion) throws PersistenceException;
-    public Sesion getLastSesionByUser(String user) throws PersistenceException;
-    public Sesion updateSesion(Sesion sesion) throws PersistenceException;
+    public List<Sesion> findAll();    
+    public Sesion findByid(int id) throws PersistenceException;
+    public List<Sesion> findBycliente(Usuario cliente) throws PersistenceException;
+    //public Sesion updateSesion(Sesion sesion) throws PersistenceException;
     
 }

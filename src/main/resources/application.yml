@@ -1,0 +1,8 @@
+ spring:
+   data:
+     mongodb:
+       host: ds123956.mlab.com
+       port: 23956
+       database: inverboydb
+       username: admin
+       password: admin  	

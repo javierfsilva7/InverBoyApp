@@ -60,8 +60,7 @@ public class SesionController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> setSesiones(@RequestBody Sesion sesion) {
         try {
-            Sesion s = new Sesion(sesion.getCliente());
-            services.setSesion(s);
+            services.setSesion(sesion);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (InverboyServicesException ex) {
             Logger.getLogger(SesionController.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,7 +76,7 @@ public class SesionController {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    
+    /*
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<?> putSesion(@RequestBody Sesion sesion) {
         try {
@@ -91,4 +90,5 @@ public class SesionController {
             return new ResponseEntity<>("No existe la sesion", HttpStatus.BAD_REQUEST);
         }
     }
+*/
 }
