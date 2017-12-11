@@ -6,11 +6,14 @@
 package edu.eci.arsw.inverboyapp.model;
 
 import java.io.Serializable;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
  *
  * @author javierfsilva7
  */
+
 public class Inmueble implements Serializable{
     public String seccion;
     public String numero;

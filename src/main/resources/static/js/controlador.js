@@ -8,10 +8,14 @@
 controlador = (function () {
     var stompClient = null;
     var inmuebles = [];
+    var torreSeleccionada;
 
-    var _fun5 = function (list) {
+    var _fun5 = function (proyecto) {
+        var list = proyecto.inmuebles;
         for (var i = 0; i < list.length; i++) {
-            inmuebles[i] = {"seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "precio": list[i].precio};
+            if (list[i].seccion == torreSeleccionada.toString()) {
+                inmuebles[inmuebles.length] = {"seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor};
+            }
         }
 
     };
@@ -36,14 +40,6 @@ controlador = (function () {
         getInmueblesByProyecto: function (name, callback) {
             var x;
             $.get("/proyectos/" + name + "/inmuebles", function (data) {
-                x = data;
-            }).done(function () {
-                callback(x);
-            });
-        },
-        getInmuebleByTorre: function (name, torre, callback) {
-            var x;
-            $.get("/proyectos/" + name + "/inmuebles/" + torre, function (data) {
                 x = data;
             }).done(function () {
                 callback(x);
@@ -109,11 +105,12 @@ controlador = (function () {
 
                 stompClient.subscribe("/topic/sesion." + sesion.toString(), function (event) {
                     var evento = JSON.parse(event.body);
-                    document.getElementById("titulo").innerHTML = evento.proyecto.nombre;
+                    document.getElementById("titulo").innerHTML = evento.proyecto._id;
                     document.getElementById("torres").innerHTML = "";
                     document.getElementById("tabla").innerHTML = "";
                     document.getElementById("nameuser").innerHTML = evento.cliente.nombre;
                     document.getElementById("logo").src = evento.proyecto.logo;
+                    document.getElementById("torres").innerHTML += "<option selected>Seleccione una torre</option>";
                     for (var i = 1; i <= evento.proyecto.torres; i++) {
                         document.getElementById("torres").innerHTML += "<option value='" + i + "'>Torre " + i + "</option>";
                     }
@@ -121,7 +118,8 @@ controlador = (function () {
                     if (evento.torreSeleccionada !== null) {
                         var markup = ("<table class=\"table table-hover\"><tbody></tbody></table>");
                         document.getElementById("tabla").innerHTML = markup;
-                        controlador.getInmuebleByTorre(evento.proyecto.nombre, evento.torreSeleccionada, _fun5);
+                        torreSeleccionada = evento.torreSeleccionada;
+                        controlador.getProyectoByName(evento.proyecto._id, _fun5);
                         setTimeout(function () {
                             var cont = 0;
                             for (var i = 0; i < evento.proyecto.pisos; i++) {
@@ -133,17 +131,18 @@ controlador = (function () {
                                 $("table tbody").append("</tr>");
                             }
                         }, 250);
-                        document.getElementById("apto").value = evento.inmuebleSeleccionado.numero;
-                        document.getElementById("valor").value = evento.inmuebleSeleccionado.valor;
-                        document.getElementById("ingresos").value = evento.cotizacion.ingresos;
-                        document.getElementById("credito").value = evento.cotizacion.credito;
-                        document.getElementById("subsidio").value = evento.cotizacion.subsidio;
-                        document.getElementById("cesantias").value = evento.cotizacion.cesantias;
-                        document.getElementById("ahorropr").value = evento.cotizacion.ahorro;
-                        document.getElementById("recpropios").value = evento.cotizacion.recpropios;
-                        document.getElementById("numcuotas").value = evento.cotizacion.numcuotas;
-                        document.getElementById("cuotas").value = evento.cotizacion.cuotas;
-
+                        if (evento.inmuebleSeleccionado !== null) {
+                            document.getElementById("apto").value = evento.inmuebleSeleccionado.numero;
+                            document.getElementById("valor").value = evento.inmuebleSeleccionado.valor;
+                            document.getElementById("ingresos").value = evento.cotizacion.ingresos;
+                            document.getElementById("credito").value = evento.cotizacion.credito;
+                            document.getElementById("subsidio").value = evento.cotizacion.subsidio;
+                            document.getElementById("cesantias").value = evento.cotizacion.cesantias;
+                            document.getElementById("ahorropr").value = evento.cotizacion.ahorro;
+                            document.getElementById("recpropios").value = evento.cotizacion.recpropios;
+                            document.getElementById("numcuotas").value = evento.cotizacion.numcuotas;
+                            document.getElementById("cuotas").value = evento.cotizacion.cuotas;
+                        }
                     }
                 });
 

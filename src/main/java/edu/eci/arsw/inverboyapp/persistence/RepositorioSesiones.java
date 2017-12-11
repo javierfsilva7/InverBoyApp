@@ -21,6 +21,5 @@ public interface RepositorioSesiones extends MongoRepository<Sesion, Integer>{
     public List<Sesion> findAll();    
     public Sesion findByid(int id) throws PersistenceException;
     public List<Sesion> findBycliente(Usuario cliente) throws PersistenceException;
-    //public Sesion updateSesion(Sesion sesion) throws PersistenceException;
     
 }

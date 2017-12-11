@@ -10,7 +10,9 @@ var apiproyecto = (function () {
 
     var _fun = function (list) {
         for (var i = 0; i < list.length; i++) {
-            proyectos[i] = {"nombre": list[i].nombre, "direccion": list[i].direccion, "tipo": list[i].tipo, "logo": list[i].logo, "torres": list[i].torres, "pisos": list[i].pisos};
+            console.info(list[i].nombre);
+            console.info(list[i].logo);
+            proyectos[i] = {"_id": list[i]._id, "direccion": list[i].direccion, "tipo": list[i].tipo, "logo": list[i].logo, "torres": list[i].torres, "pisos": list[i].pisos};
         }
 
     };
@@ -20,9 +22,12 @@ var apiproyecto = (function () {
         
         loadProyectos: function () {
             controlador.getAllProyectos(_fun);
+            
             setTimeout(function () {
+                document.getElementById("proyectos").innerHTML += "<option selected>Seleccione proyecto</option>";
                 for (var i = 0; i < proyectos.length; i++) {
-                    document.getElementById("proyectos").innerHTML += "<option value='" + proyectos[i].nombre + "'>Proyecto " + proyectos[i].nombre + "</option>";
+                    console.info(proyectos[i]._id);
+                    document.getElementById("proyectos").innerHTML += "<option value='" + proyectos[i]._id + "'>Proyecto " + proyectos[i]._id + "</option>";
                 }
             }, 250);
         }

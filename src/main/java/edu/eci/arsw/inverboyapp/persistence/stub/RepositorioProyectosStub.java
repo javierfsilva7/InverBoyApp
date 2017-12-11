@@ -7,7 +7,6 @@ package edu.eci.arsw.inverboyapp.persistence.stub;
 
 import edu.eci.arsw.inverboyapp.model.Inmueble;
 import edu.eci.arsw.inverboyapp.model.Proyecto;
-import edu.eci.arsw.inverboyapp.model.ProyectoApartamentos;
 import edu.eci.arsw.inverboyapp.persistence.PersistenceException;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioProyectos;
 import java.util.ArrayList;
@@ -23,8 +22,7 @@ import org.springframework.stereotype.Service;
  * @author javierfsilva7
  *
  *
- */
-@Service
+ 
 public class RepositorioProyectosStub implements RepositorioProyectos {
 
     private static Map<String, ProyectoApartamentos> proyectosdb;
@@ -156,3 +154,4 @@ public class RepositorioProyectosStub implements RepositorioProyectos {
     }
 
 }
+*/

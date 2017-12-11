@@ -7,21 +7,16 @@ package edu.eci.arsw.inverboyapp.persistence;
 
 import edu.eci.arsw.inverboyapp.model.Inmueble;
 import edu.eci.arsw.inverboyapp.model.Proyecto;
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  *
  * @author javierfsilva7
  */
-public interface RepositorioProyectos {
+public interface RepositorioProyectos extends MongoRepository<Proyecto, Integer> {
 
-    public Proyecto getProyectoByName(String name) throws PersistenceException;
-
-    public Set<Proyecto> getAllProyectos() throws PersistenceException;
-
-    public Set<Inmueble> getInmuelesByProyecto(String proyecto) throws PersistenceException;
-    
-    public ArrayList<Inmueble> getInmuebleByTorre(String proyecto, int torre) throws PersistenceException;
+    public Proyecto findBy_id(String _id) throws PersistenceException;    
+    public List<Inmueble> findInmueblesBy_id(String _id) throws PersistenceException;
 
 }

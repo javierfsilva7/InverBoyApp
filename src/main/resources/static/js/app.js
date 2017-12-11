@@ -21,18 +21,25 @@ var app = (function () {
         sesionActual = {"id": sesion.id, "cliente": sesion.cliente, "asesor": sesion.asesor, "cotizaciones": sesion.cotizaciones, "estado": sesion.estado, "proyecto": sesion.proyecto, "inmuebleSeleccionado": sesion.inmuebleSeleccionado, "torreSeleccionada": sesion.torreSeleccionada};
     };
     var _fun3 = function (proyecto) {
-        proyectoSeleccionado = {"nombre": proyecto.nombre, "direcion": proyecto.direccion, "tipo": proyecto.tipo, "logo": proyecto.logo, "torres": proyecto.torres, "pisos": proyecto.pisos, "imp": proyecto.imp};
+        proyectoSeleccionado = {"_id": proyecto._id, "direcion": proyecto.direccion, "tipo": proyecto.tipo, "logo": proyecto.logo, "torres": proyecto.torres, "pisos": proyecto.pisos, "imp": proyecto.imp};
     };
     var _fun4 = function (list) {
-
         for (var i = 0; i < list.length; i++) {
             sesiones[i] = {"id": list[i].id, "cliente": list[i].cliente, "asesor": list[i].asesor, "cotizaciones": list[i].cotizaciones, "estado": list[i].estado};
         }
     };
-    var _fun5 = function (list) {
+    var _fun5 = function (proyecto) { 
+        var inmuebles = [];
+        var list = proyecto.inmuebles;
         for (var i = 0; i < list.length; i++) {
-            if (list[i].numero == apartamentoSel) {
-                inmueble = list[i];
+            if (list[i].seccion == torreSeleccionada.toString()) {
+                inmuebles[inmuebles.length] = {"seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor};
+            }
+        }
+        for (var i = 0; i < inmuebles.length; i++) {
+            if (inmuebles[i].numero == apartamentoSel.toString()) {
+                inmueble = inmuebles[i];
+                console.info(inmueble);
             }
         }
     };
@@ -126,7 +133,7 @@ var app = (function () {
             torreSeleccionada = document.getElementById("torres").value;
             setTimeout(function () {
 
-                var sesion = {"id": sesionActual.id, "cliente": sesionActual.cliente, "asesor": sesionActual.asesor, "cotizacion": sesionActual.cotizacion, "proyecto": proyectoSeleccionado, "inmuebleSeleccionado": null, "torreSeleccionada": torreSeleccionada};
+                var sesion = {"id": sesionActual.id, "cliente": sesionActual.cliente, "asesor": sesionActual.asesor, "cotizacion": sesionActual.cotizacion, "proyecto": proyectoSeleccionado, "inmuebleSeleccionado": inmueble, "torreSeleccionada": torreSeleccionada};
                 $.ajax({
                     url: "/sesiones",
                     type: "PUT",
@@ -141,7 +148,7 @@ var app = (function () {
             controlador.getSesionById(sesionActual.id, _fun2);
             setTimeout(function () {
 
-                controlador.getInmuebleByTorre(sesionActual.proyecto.nombre, sesionActual.torreSeleccionada, _fun5);
+                controlador.getProyectoByName(sesionActual.proyecto._id,_fun5);
                 setTimeout(function () {
                     var sesion = {"id": sesionActual.id, "cliente": sesionActual.cliente, "asesor": sesionActual.asesor, "cotizacion": sesionActual.cotizacion, "proyecto": proyectoSeleccionado, "inmuebleSeleccionado": inmueble, "torreSeleccionada": torreSeleccionada};
                     $.ajax({
@@ -166,7 +173,7 @@ var app = (function () {
                 var recpropios = document.getElementById("recpropios").value;
                 var numcuotas = document.getElementById("numcuotas").value;
                 var cuotas = document.getElementById("cuotas").value;
-                var cotizacion = {"cliente": sesionActual.cliente, "inmueble": sesionActual.inmuebleSeleccionado, "asesor": sesionActual.asesor, "proyecto": sesionActual.proyecto.nombre, "ingresos": ingresos, "credito": credito, "subsidio": subsidio, "cesantias": cesantias, "ahorro": ahorro, "recpropios": recpropios, "numcuotas": numcuotas, "cuotas": cuotas};
+                var cotizacion = {"cliente": sesionActual.cliente, "inmueble": sesionActual.inmuebleSeleccionado, "asesor": sesionActual.asesor, "proyecto": sesionActual.proyecto._id, "ingresos": ingresos, "credito": credito, "subsidio": subsidio, "cesantias": cesantias, "ahorro": ahorro, "recpropios": recpropios, "numcuotas": numcuotas, "cuotas": cuotas};
                 var sesion = {"id": sesionActual.id, "cliente": sesionActual.cliente, "asesor": sesionActual.asesor, "cotizacion": cotizacion, "proyecto": sesionActual.proyecto, "inmuebleSeleccionado": sesionActual.inmuebleSeleccionado, "torreSeleccionada": sesionActual.torreSeleccionada};
                 $.ajax({
                     url: "/sesiones",
@@ -177,10 +184,10 @@ var app = (function () {
                 });
             }, 200);
         },
-        singUp: function () {            
+        singUp: function () {
             document.getElementById("contenedor").innerHTML = ("<div id=\"contenedor\"><div class=\"row\"><div class=\"col-md-2\" id=\"contenedorlog\"><img src=\"/img/logo-png.png\" class=\"img-responsive\" alt=\"Conxole Admin\"/><input placeholder=\"Nombre\" id=\"nombre\" type=\"text\" class=\"form-control form-control-success\"><input  placeholder=\"Celular\" id=\"id\" type=\"text\" class=\" form-control form-control-success\"><input placeholder=\"Correo\" id=\"correo\" type=\"text\" class=\" form-control form-control-success\"> <br></br><button id=\"singup\" class=\"btn btn-success btn-lg btn-block\" onclick=\"app.registrarse()\"> Registrarse </button><a href=\"index.html\"> Ingresar</a> </div></div></div>");
 
-       },
+        },
         registrarse: function () {
             console.info("entro a la funcion");
             var nombre = document.getElementById("nombre").value;

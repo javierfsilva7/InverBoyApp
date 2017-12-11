@@ -5,13 +5,9 @@
  */
 package edu.eci.arsw.inverboyapp.controllers;
 
-import edu.eci.arsw.inverboyapp.model.Proyecto;
-import edu.eci.arsw.inverboyapp.model.ProyectoApartamentos;
 import edu.eci.arsw.inverboyapp.model.Sesion;
 import edu.eci.arsw.inverboyapp.services.InverboyServicesException;
 import edu.eci.arsw.inverboyapp.services.Servicios;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,10 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/sesiones")
 public class SesionController {
-    
+
     @Autowired
     Servicios services;
-    
+
     @Autowired
     SimpMessagingTemplate msmt;
 
@@ -46,7 +42,7 @@ public class SesionController {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    
+
     @RequestMapping(path = "/{sesion}", method = RequestMethod.GET)
     public ResponseEntity<?> getSesionById(@PathVariable int sesion) {
         System.out.println(sesion);
@@ -56,7 +52,7 @@ public class SesionController {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> setSesiones(@RequestBody Sesion sesion) {
         try {
@@ -67,7 +63,7 @@ public class SesionController {
             return new ResponseEntity<>("No existe la sesion", HttpStatus.BAD_REQUEST);
         }
     }
-    
+
     @RequestMapping(path = "/usuario/{usuario}", method = RequestMethod.GET)
     public ResponseEntity<?> getLastSesionByUser(@PathVariable String usuario) {
         try {
@@ -76,19 +72,18 @@ public class SesionController {
             return new ResponseEntity<>(ex.getLocalizedMessage(), HttpStatus.NOT_FOUND);
         }
     }
-    /*
+
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<?> putSesion(@RequestBody Sesion sesion) {
         try {
             Sesion pr = services.updateSesion(sesion);
             msmt.convertAndSend("/topic/sesion." + sesion.getId(), pr);
-           
             return new ResponseEntity<>(HttpStatus.CREATED);
-            
+
         } catch (InverboyServicesException ex) {
             Logger.getLogger(SesionController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("No existe la sesion", HttpStatus.BAD_REQUEST);
         }
     }
-*/
+
 }

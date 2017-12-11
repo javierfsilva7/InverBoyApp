@@ -67,38 +67,27 @@ public class Servicios {
         }
     }
 
-    public Set<Proyecto> getAllProyectos() throws InverboyServicesException {
+    public List<Proyecto> getAllProyectos() throws InverboyServicesException {
+        return proyectos.findAll();
+
+    }
+
+    public Proyecto getProyectoByName(String _id) throws InverboyServicesException {
         try {
-            return proyectos.getAllProyectos();
+            return proyectos.findBy_id(_id);
         } catch (PersistenceException ex) {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
     }
 
-    public Proyecto getProyectoByName(String name) throws InverboyServicesException {
-        try {
-            return proyectos.getProyectoByName(name);
-        } catch (PersistenceException ex) {
-            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
-        }
-    }
-
-    public Set<Inmueble> getInmueblesByProyecto(String proyecto) throws InverboyServicesException {
+    public List<Inmueble> getInmueblesByProyecto(String _id) throws InverboyServicesException {
 
         try {
-            return proyectos.getInmuelesByProyecto(proyecto);
+            return proyectos.findInmueblesBy_id(_id);
         } catch (PersistenceException ex) {
             throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
         }
 
-    }
-
-    public ArrayList<Inmueble> getInmueblesByTorre(String proyecto, int torre) throws InverboyServicesException {
-        try {
-            return proyectos.getInmuebleByTorre(proyecto, torre);
-        } catch (PersistenceException ex) {
-            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
-        }
     }
 
     public void addCotizacion(Cotizacion cotizacion) throws InverboyServicesException {
@@ -134,19 +123,14 @@ public class Servicios {
     }
 
     public void setSesion(Sesion sesion) throws InverboyServicesException {
-        sesion.setId(getAllSesiones().size()+1);
+        sesion.setId(getAllSesiones().size() + 1);
         sesiones.save(sesion);
     }
 
-    /*
     public Sesion updateSesion(Sesion sesion) throws InverboyServicesException {
-        try {
-            return sesiones.updateSesion(sesion);
-        } catch (PersistenceException ex) {
-            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
-        }
+        return sesiones.save(sesion);
     }
-     */
+
     public Sesion getLastSesionByUser(String user) throws InverboyServicesException {
         try {
             List<Sesion> ss = sesiones.findBycliente(usuariosRepositorio.findBy_id(user));
