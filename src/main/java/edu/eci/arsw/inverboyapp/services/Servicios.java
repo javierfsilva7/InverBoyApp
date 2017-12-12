@@ -7,12 +7,14 @@ package edu.eci.arsw.inverboyapp.services;
 
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
+import edu.eci.arsw.inverboyapp.model.Conversacion;
 import edu.eci.arsw.inverboyapp.model.Cotizacion;
 import edu.eci.arsw.inverboyapp.model.Inmueble;
 import edu.eci.arsw.inverboyapp.model.Proyecto;
 import edu.eci.arsw.inverboyapp.model.Sesion;
 import edu.eci.arsw.inverboyapp.model.Usuario;
 import edu.eci.arsw.inverboyapp.persistence.PersistenceException;
+import edu.eci.arsw.inverboyapp.persistence.RepositorioConversaciones;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioCotizaciones;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioProyectos;
 import edu.eci.arsw.inverboyapp.persistence.RepositorioSesiones;
@@ -41,6 +43,9 @@ public class Servicios {
 
     @Autowired
     RepositorioSesiones sesiones;
+    
+    @Autowired
+    RepositorioConversaciones conversaciones;
 
     public Usuario getUserById(String id) {
         return usuariosRepositorio.findBy_id(id);
@@ -69,6 +74,10 @@ public class Servicios {
 
     public List<Proyecto> getAllProyectos() throws InverboyServicesException {
         return proyectos.findAll();
+
+    }
+    public List<Conversacion> getAllConversaciones() throws InverboyServicesException {
+        return conversaciones.findAll();
 
     }
 
@@ -123,6 +132,14 @@ public class Servicios {
             throw new InverboyServicesException("Error loading Sesion Data:" + ex.getLocalizedMessage(), ex);
         }
     }
+    
+    public Conversacion getConversacionById(int _id) throws InverboyServicesException {
+        try {
+            return conversaciones.findBy_id(_id);
+        } catch (PersistenceException ex) {
+            throw new InverboyServicesException("Error loading Sesion Data:" + ex.getLocalizedMessage(), ex);
+        }
+    }
 
     public void setSesion(Sesion sesion) throws InverboyServicesException {
         sesion.setId(getAllSesiones().size() + 1);
@@ -131,6 +148,10 @@ public class Servicios {
 
     public Sesion updateSesion(Sesion sesion) throws InverboyServicesException {
         return sesiones.save(sesion);
+    }
+    
+    public Conversacion setConversacion(Conversacion conversacion) throws InverboyServicesException {
+        return conversaciones.save(conversacion);
     }
 
     public Proyecto updateProyecto(Proyecto proyecto) throws InverboyServicesException {

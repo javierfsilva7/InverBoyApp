@@ -14,6 +14,9 @@ var app = (function () {
     var torreSeleccionada;
     var inmueble;
     var apartamentoSel;
+    var conversacionSeleccionada;
+    var mensajeenviado;
+
     var _fun = function (user) {
         username = {"_id": user._id, "nombre": user.nombre, "correo": user.correo, "rol": user.rol};
     };
@@ -33,7 +36,7 @@ var app = (function () {
         var list = proyecto.inmuebles;
         for (var i = 0; i < list.length; i++) {
             if (list[i].seccion == torreSeleccionada.toString()) {
-                inmuebles[inmuebles.length] = {"_id":list[i]._id, "seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor, "estado":list[i].estado};
+                inmuebles[inmuebles.length] = {"_id": list[i]._id, "seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor, "estado": list[i].estado};
             }
         }
         for (var i = 0; i < inmuebles.length; i++) {
@@ -47,17 +50,25 @@ var app = (function () {
         var inmuebles = [];
         var list = proyecto.inmuebles;
         for (var i = 0; i < list.length; i++) {
-            if (list[i]._id === (proyecto._id+"-"+torreSeleccionada.toString()+"-"+apartamentoSel)) {
+            if (list[i]._id === (proyecto._id + "-" + torreSeleccionada.toString() + "-" + apartamentoSel)) {
                 inmuebles[i] = {"_id": list[i]._id, "seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor, "estado": "reservado"};
-            }else{
+            } else {
                 inmuebles[i] = {"_id": list[i]._id, "seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor, "estado": list[i].estado};
-                          
+
             }
         }
-        proyecto.inmuebles=inmuebles;
+        proyecto.inmuebles = inmuebles;
         proyectoSeleccionado = proyecto;
     };
-    
+
+    var _fun7 = function (conversacion) {
+        
+        console.info(conversacion.mensajes+"CONVERSACIONNNNN");
+        var list = conversacion.mensajes;
+        conversacion.mensajes[list.length] = {"remitente": "", "mensaje": mensajeenviado};
+        conversacionSeleccionada = conversacion;
+    };
+
     return {
         inicio: function () {
             user = document.getElementById("username").value;
@@ -76,6 +87,7 @@ var app = (function () {
                     $.get("proyecto.html", function (data) {
                         $("#contenedor").html(data);
                         document.getElementById("header").innerHTML = "<div class=\"col-md-4 encabezado\"><h1 id=\"nameuser\">Usuario: </><h1 id=\"titulo\">Proyecto </h1><img id=\"logo\"/><br></br><select id=\"proyectos\"class =\"select\" class= \"form-control\" onchange=\"app.selectProyect()\"></select><br></br><select id=\"torres\" class =\"select\" onchange=\"app.selectTorre()\"></select></div><div id=\"cotizador\" class=\"col-md-4\"></div> ";
+                        document.getElementById("container").innerHTML = "<div class=\"col-md-2\" id=\"tabla\" style=\"margin-left:15%;\"></div><div style=\"margin-left:15%;\" class=\"col-md-6\"><div id=\"chat\" style=\" background-color:lightgrey; height:300px; width:400px; overflow-y: scroll;\"></div><div><input id=\"mensaje\" type=\"text\"><button class=\"btn btn-danger\" onclick=\"app.enviar()\">Enviar</button></div></div>";
                         document.getElementById("nameuser").innerHTML = username.nombre;
 
                         document.getElementById("cotizador").innerHTML = ("<div><p>Apartamento: </p><input id=\"apto\" disabled type=\"number\" class=\"form-control\" ><p>Valor:</p><input id=\"valor\" type=\"number\" disabled class=\"form-control\">");
@@ -112,7 +124,7 @@ var app = (function () {
                 }
             }, 200);
         }, selectProyect: function () {
-            document.getElementById("container").innerHTML = "<div class=\"col-md-2\" id=\"tabla\"></div>";
+            document.getElementById("container").innerHTML = "<div class=\"col-md-2\" id=\"tabla\" style=\"margin-left:15%;\"></div><div style=\"margin-left:15%;\" class=\"col-md-6\"><div id=\"chat\" style=\" background-color:lightgrey; height:300px; width:400px; overflow-y: scroll;\"></div><div><input id=\"mensaje\" type=\"text\"><button class=\"btn btn-danger\" onclick=\"app.enviar()\">Enviar</button></div></div>";
             var proyecto = document.getElementById("proyectos").value;
             controlador.getProyectoByName(proyecto, _fun3);
             setTimeout(function () {
@@ -129,7 +141,7 @@ var app = (function () {
         }, subscribe: function (sesion) {
             controlador.getSesionById(sesion, _fun2);
             document.getElementById("header").innerHTML = "<div class=\"col-md-4 encabezado\"><h1 id=\"nameuser\">Usuario: </><h1 id=\"titulo\">Proyecto </h1><img id=\"logo\"/><br></br><select id=\"proyectos\"class =\"select\" onchange=\"app.selectProyect()\"></select><br></br><select id=\"torres\" class =\"select\" onchange=\"app.selectTorre()\"></select></div><div id=\"cotizador\" class=\"col-md-4\"></div> ";
-            document.getElementById("container").innerHTML = "<div class=\"col-md-2\" id=\"tabla\"></div>";
+            document.getElementById("container").innerHTML = "<div class=\"col-md-2\" id=\"tabla\" style=\"margin-left:15%;\"></div><div style=\"margin-left:15%;\" class=\"col-md-6\"><div id=\"chat\" style=\" background-color:lightgrey; height:300px; width:400px; overflow-y: scroll;\"></div><div><input id=\"mensaje\" type=\"text\"><button class=\"btn btn-danger\" onclick=\"app.enviar()\">Enviar</button></div></div>";
 
             document.getElementById("cotizador").innerHTML = ("<div><p>Apartamento: </p><input id=\"apto\" disabled class=\"form-control\" type=\"number\" ><p>Valor:</p><input id=\"valor\" class=\"form-control\" type=\"number\" disabled >");
             document.getElementById("cotizador").innerHTML += ("<p>Ingresos mensuales: </p><input id=\"ingresos\" class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
@@ -223,7 +235,7 @@ var app = (function () {
                 });
             }, 200);
         },
-        reservar: function () {            
+        reservar: function () {
             controlador.getProyectoByName(sesionActual.proyecto._id, _fun6);
             setTimeout(function () {
                 $.ajax({
@@ -233,6 +245,21 @@ var app = (function () {
                     dataType: "json",
                     contentType: "application/json; charset=utf-8"
                 });
+            }, 200);
+        },
+        enviar: function () {            
+            var conv = {"_id": sesionActual.id, "mensajes":[]};
+            $.ajax({
+                    url: "/conversaciones",
+                    type: "PUT",
+                    data: JSON.stringify(conv),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8"
+                });
+            mensajeenviado = document.getElementById("mensaje").value;
+            console.info(sesionActual.id);            
+            setTimeout(function () {
+                controlador.getConversacionById(sesionActual.id, _fun7);
             }, 200);
         }
     };

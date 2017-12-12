@@ -77,6 +77,13 @@ controlador = (function () {
                 callback(x);
             });
 
+        },getConversacionById : function(sesion, callback){
+            var x;
+            $.get("/conversaciones/" + sesion, function (data) {
+                x = data;
+            }).done(function () {
+                callback(x);
+            });
         },
         getSesionById: function (sesion, callback) {
             var x;
@@ -94,6 +101,12 @@ controlador = (function () {
                 console.log('Connected: ' + frame);
 
                 //subscriptions
+                stompClient.subscribe("/topic/chat." + sesion.toString(), function (event) {
+                    var evento = JSON.parse(event.body);
+                    for (var i = 0; i < evento.mensajes.length; i++) {
+                        document.getElementById("chat").innerHTML += "<p>"+evento.mensajes[i].mensaje+"</p>";
+                    }
+                });
 
                 stompClient.subscribe("/topic/sesion." + sesion.toString(), function (event) {
                     var evento = JSON.parse(event.body);
