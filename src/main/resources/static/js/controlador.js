@@ -14,7 +14,7 @@ controlador = (function () {
         var list = proyecto.inmuebles;
         for (var i = 0; i < list.length; i++) {
             if (list[i].seccion == torreSeleccionada.toString()) {
-                inmuebles[inmuebles.length] = {"seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor};
+                inmuebles[inmuebles.length] = {"_id": list[i]._id, "seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor, "estado": list[i].estado};
             }
         }
 
@@ -32,14 +32,6 @@ controlador = (function () {
         getProyectoByName: function (name, callback) {
             var x;
             $.get("/proyectos/" + name, function (data) {
-                x = data;
-            }).done(function () {
-                callback(x);
-            });
-        },
-        getInmueblesByProyecto: function (name, callback) {
-            var x;
-            $.get("/proyectos/" + name + "/inmuebles", function (data) {
                 x = data;
             }).done(function () {
                 callback(x);
@@ -107,7 +99,7 @@ controlador = (function () {
                     var evento = JSON.parse(event.body);
                     document.getElementById("titulo").innerHTML = evento.proyecto._id;
                     document.getElementById("torres").innerHTML = "";
-                    document.getElementById("tabla").innerHTML = "";
+                    document.getElementById("tabla").innerHTML = ("<table class=\"table table-hover\"><tbody></tbody></table>");
                     document.getElementById("nameuser").innerHTML = evento.cliente.nombre;
                     document.getElementById("logo").src = evento.proyecto.logo;
                     document.getElementById("torres").innerHTML += "<option selected>Seleccione una torre</option>";
@@ -116,8 +108,7 @@ controlador = (function () {
                     }
 
                     if (evento.torreSeleccionada !== null) {
-                        var markup = ("<table class=\"table table-hover\"><tbody></tbody></table>");
-                        document.getElementById("tabla").innerHTML = markup;
+                        $("table tbody").val("<table class=\"table table-hover\"><tbody></tbody></table>");
                         torreSeleccionada = evento.torreSeleccionada;
                         controlador.getProyectoByName(evento.proyecto._id, _fun5);
                         setTimeout(function () {
@@ -125,7 +116,12 @@ controlador = (function () {
                             for (var i = 0; i < evento.proyecto.pisos; i++) {
                                 $("table tbody").append("<tr>");
                                 for (var j = 0; j < 4; j++) {
-                                    $("table tbody").append("<td><button onclick=\"app.loadinmueble('" + inmuebles[j + cont].numero + "')\">" + inmuebles[j + cont].numero + "</button></td>");
+                                    console.info(inmuebles[j + cont].estado);
+                                    if (inmuebles[j + cont].estado == "reservado") {
+                                        $("table tbody").append("<td><button disabled=\"true\" class=\"btn btn-danger btn-lg btn-block\" onclick=\"app.loadinmueble('" + inmuebles[j + cont].numero + "')\">" + inmuebles[j + cont].numero + "</button></td>");
+                                    } else {
+                                        $("table tbody").append("<td><button class=\"btn btn-success btn-lg btn-block\" onclick=\"app.loadinmueble('" + inmuebles[j + cont].numero + "')\">" + inmuebles[j + cont].numero + "</button></td>");
+                                    }
                                 }
                                 cont += 4;
                                 $("table tbody").append("</tr>");

@@ -28,12 +28,12 @@ var app = (function () {
             sesiones[i] = {"id": list[i].id, "cliente": list[i].cliente, "asesor": list[i].asesor, "cotizaciones": list[i].cotizaciones, "estado": list[i].estado};
         }
     };
-    var _fun5 = function (proyecto) { 
+    var _fun5 = function (proyecto) {
         var inmuebles = [];
         var list = proyecto.inmuebles;
         for (var i = 0; i < list.length; i++) {
             if (list[i].seccion == torreSeleccionada.toString()) {
-                inmuebles[inmuebles.length] = {"seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor};
+                inmuebles[inmuebles.length] = {"_id":list[i]._id, "seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor, "estado":list[i].estado};
             }
         }
         for (var i = 0; i < inmuebles.length; i++) {
@@ -43,6 +43,21 @@ var app = (function () {
             }
         }
     };
+    var _fun6 = function (proyecto) {
+        var inmuebles = [];
+        var list = proyecto.inmuebles;
+        for (var i = 0; i < list.length; i++) {
+            if (list[i]._id === (proyecto._id+"-"+torreSeleccionada.toString()+"-"+apartamentoSel)) {
+                inmuebles[i] = {"_id": list[i]._id, "seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor, "estado": "reservado"};
+            }else{
+                inmuebles[i] = {"_id": list[i]._id, "seccion": list[i].seccion, "numero": list[i].numero, "tipo": list[i].tipo, "valor": list[i].valor, "estado": list[i].estado};
+                          
+            }
+        }
+        proyecto.inmuebles=inmuebles;
+        proyectoSeleccionado = proyecto;
+    };
+    
     return {
         inicio: function () {
             user = document.getElementById("username").value;
@@ -70,6 +85,7 @@ var app = (function () {
                         document.getElementById("cotizador").innerHTML += ("<p>Ahorro programado: </p><input  id=\"ahorropr\" class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
                         document.getElementById("cotizador").innerHTML += ("<p>Recursos propios: </p><input id=\"recpropios\"  class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
                         document.getElementById("cotizador").innerHTML += ("<p>Numero de cuotas: </p><input type=\"number\" id=\"numcuotas\" class=\"form-control\" onchange=\"app.updateCotizacion()\" ><p>Cuotas mensuales de: </p><input type=\"number\" id=\"cuotas\" class=\"form-control\" onchange=\"app.updateCotizacion()\" ></div>");
+                        document.getElementById("cotizador").innerHTML += ("<br><button id=\"reservar\" class=\"btn btn-danger btn-lg btn-block\" onclick=\"app.reservar()\"> Reservar </button>");
 
                         apiproyecto.loadProyectos();
                         setTimeout(function () {
@@ -122,6 +138,7 @@ var app = (function () {
             document.getElementById("cotizador").innerHTML += ("<p>Ahorro programado: </p><input  id=\"ahorropr\" class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
             document.getElementById("cotizador").innerHTML += ("<p>Recursos propios: </p><input id=\"recpropios\"  class=\"form-control\" onchange=\"app.updateCotizacion()\" type=\"number\">");
             document.getElementById("cotizador").innerHTML += ("<p>Numero de cuotas: </p><input type=\"number\" id=\"numcuotas\" class=\"form-control\" onchange=\"app.updateCotizacion()\" ><p>Cuotas mensuales de: </p><input type=\"number\" id=\"cuotas\" class=\"form-control\" onchange=\"app.updateCotizacion()\" ></div>");
+            document.getElementById("cotizador").innerHTML += ("<br><button id=\"reservar\" class=\"btn btn-danger btn-lg btn-block\" onclick=\"app.reservar()\"> Reservar </button>");
 
             apiproyecto.loadProyectos();
             setTimeout(function () {
@@ -133,7 +150,7 @@ var app = (function () {
             torreSeleccionada = document.getElementById("torres").value;
             setTimeout(function () {
 
-                var sesion = {"id": sesionActual.id, "cliente": sesionActual.cliente, "asesor": sesionActual.asesor, "cotizacion": sesionActual.cotizacion, "proyecto": proyectoSeleccionado, "inmuebleSeleccionado": inmueble, "torreSeleccionada": torreSeleccionada};
+                var sesion = {"id": sesionActual.id, "cliente": sesionActual.cliente, "asesor": sesionActual.asesor, "cotizacion": sesionActual.cotizacion, "proyecto": proyectoSeleccionado, "inmuebleSeleccionado": sesionActual.inmuebleSeleccionado, "torreSeleccionada": torreSeleccionada};
                 $.ajax({
                     url: "/sesiones",
                     type: "PUT",
@@ -148,7 +165,7 @@ var app = (function () {
             controlador.getSesionById(sesionActual.id, _fun2);
             setTimeout(function () {
 
-                controlador.getProyectoByName(sesionActual.proyecto._id,_fun5);
+                controlador.getProyectoByName(sesionActual.proyecto._id, _fun5);
                 setTimeout(function () {
                     var sesion = {"id": sesionActual.id, "cliente": sesionActual.cliente, "asesor": sesionActual.asesor, "cotizacion": sesionActual.cotizacion, "proyecto": proyectoSeleccionado, "inmuebleSeleccionado": inmueble, "torreSeleccionada": torreSeleccionada};
                     $.ajax({
@@ -201,6 +218,18 @@ var app = (function () {
                     url: "/usuarios",
                     type: "POST",
                     data: JSON.stringify(cliente),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8"
+                });
+            }, 200);
+        },
+        reservar: function () {            
+            controlador.getProyectoByName(sesionActual.proyecto._id, _fun6);
+            setTimeout(function () {
+                $.ajax({
+                    url: "/proyectos",
+                    type: "PUT",
+                    data: JSON.stringify(proyectoSeleccionado),
                     dataType: "json",
                     contentType: "application/json; charset=utf-8"
                 });

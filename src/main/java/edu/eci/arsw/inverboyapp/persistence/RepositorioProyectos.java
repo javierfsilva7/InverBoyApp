@@ -9,6 +9,7 @@ import edu.eci.arsw.inverboyapp.model.Inmueble;
 import edu.eci.arsw.inverboyapp.model.Proyecto;
 import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 /**
  *
@@ -16,7 +17,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 public interface RepositorioProyectos extends MongoRepository<Proyecto, Integer> {
 
-    public Proyecto findBy_id(String _id) throws PersistenceException;    
-    public List<Inmueble> findInmueblesBy_id(String _id) throws PersistenceException;
+    public Proyecto findBy_id(String _id) throws PersistenceException; 
+    //public List<Inmueble> findinmuebleBy_id(String _id) throws PersistenceException;
 
 }

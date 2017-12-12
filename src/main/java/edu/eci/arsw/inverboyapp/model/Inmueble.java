@@ -15,10 +15,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 
 public class Inmueble implements Serializable{
+    public String _id;
     public String seccion;
     public String numero;
     public String tipo;
     public String valor;
+    public String estado;
 
     public Inmueble(String seccion, String numero, String tipo, String valor) {
         this.seccion = seccion;
@@ -28,7 +30,25 @@ public class Inmueble implements Serializable{
         
     }
 
+    public Inmueble(String _id, String seccion, String numero, String tipo, String valor, String estado) {
+        this._id = _id;
+        this.seccion = seccion;
+        this.numero = numero;
+        this.tipo = tipo;
+        this.valor = valor;
+        this.estado = estado;
+    }
+    
+
     public Inmueble() {
+    }
+
+    public String getId() {
+        return _id;
+    }
+
+    public void setId(String id) {
+        this._id = id;
     }
     
 
@@ -62,6 +82,14 @@ public class Inmueble implements Serializable{
 
     public void setValor(String valor) {
         this.valor = valor;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
     

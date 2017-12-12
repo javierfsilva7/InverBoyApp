@@ -80,13 +80,15 @@ public class Servicios {
         }
     }
 
-    public List<Inmueble> getInmueblesByProyecto(String _id) throws InverboyServicesException {
-
-        try {
-            return proyectos.findInmueblesBy_id(_id);
-        } catch (PersistenceException ex) {
-            throw new InverboyServicesException("Error loading User Data:" + ex.getLocalizedMessage(), ex);
+    public Inmueble getInmuebleSeleccionado(String _id, String seccion, String numero) throws InverboyServicesException {
+        Inmueble inm = new Inmueble();
+        Proyecto pr = getProyectoByName(_id);
+        for (int i = 0; i < pr.inmuebles.size(); i++) {
+            if (pr.inmuebles.get(i)._id.equals(_id + "-" + seccion + "-" + numero)) {
+                inm = pr.inmuebles.get(i);
+            }
         }
+        return inm;
 
     }
 
@@ -129,6 +131,10 @@ public class Servicios {
 
     public Sesion updateSesion(Sesion sesion) throws InverboyServicesException {
         return sesiones.save(sesion);
+    }
+
+    public Proyecto updateProyecto(Proyecto proyecto) throws InverboyServicesException {
+        return proyectos.save(proyecto);
     }
 
     public Sesion getLastSesionByUser(String user) throws InverboyServicesException {
